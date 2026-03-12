@@ -3,2891 +3,1194 @@
 <html lang="uk">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <title>Fenomen App</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FENOMEN HUB</title>
   <style>
     :root{
-      --bg:#05070d;
-      --bg-2:#0a0f18;
-      --panel:#0e1522;
-      --panel-2:#121b2b;
-      --soft:#1a2538;
-      --line:#243247;
-      --line-2:#334766;
-      --text:#f8fafc;
-      --muted:#94a3b8;
-      --red:#dc2626;
-      --red-2:#991b1b;
-      --gold:#fbbf24;
-      --gold-2:#d97706;
-      --green:#10b981;
-      --blue:#3b82f6;
-      --shadow:0 20px 50px rgba(0,0,0,.45);
-      --radius:22px;
-      --radius-sm:16px;
-      --header-h: 82px;
-      --nav-h: 78px;
-      --safe-b: env(safe-area-inset-bottom, 0px);
+      --bg:#04070f; --panel:#0b1220; --panel2:#101827; --text:#f8fafc; --muted:#94a3b8;
+      --red:#dc2626; --red2:#7f1d1d; --gold:#fbbf24; --green:#059669; --amber:#d97706; --blue:#2563eb;
+      --line:#253246; --soft:#131d30;
     }
-
     *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-    html,body{margin:0;padding:0}
     body{
-      font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Roboto,Arial,sans-serif;
-      color:var(--text);
+      margin:0;font-family:Arial,Helvetica,sans-serif;color:var(--text);
       background:
-        radial-gradient(900px 400px at 10% -10%, rgba(220,38,38,.18), transparent 50%),
-        radial-gradient(700px 350px at 100% 0%, rgba(251,191,36,.12), transparent 45%),
-        radial-gradient(700px 350px at 50% 100%, rgba(220,38,38,.08), transparent 50%),
-        linear-gradient(180deg,var(--bg),var(--bg-2));
-      min-height:100vh;
-      overflow-x:hidden;
+        radial-gradient(circle at top, rgba(220,38,38,.18), transparent 24%),
+        radial-gradient(circle at bottom right, rgba(251,191,36,.10), transparent 18%),
+        var(--bg);
     }
-
-    .app{
-      width:100%;
-      max-width:1280px;
-      margin:0 auto;
-      padding:12px 12px calc(var(--nav-h) + 22px + var(--safe-b));
-    }
-
-    .topbar{
-      position:sticky;
-      top:0;
-      z-index:50;
-      padding-top: max(8px, env(safe-area-inset-top, 0px));
-      margin:0 -12px 12px;
-      backdrop-filter: blur(14px);
-      background:linear-gradient(180deg, rgba(5,7,13,.92), rgba(5,7,13,.72));
-      border-bottom:1px solid rgba(251,191,36,.08);
-    }
-
-    .topbar-inner{
-      max-width:1280px;
-      margin:0 auto;
-      padding:10px 12px 12px;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:12px;
-      min-height:var(--header-h);
-    }
-
-    .brand{
-      display:flex;
-      align-items:center;
-      gap:12px;
-      min-width:0;
-    }
-
-    .brand-logo{
-      width:52px;height:52px;border-radius:18px;position:relative;overflow:hidden;
-      background:
-        radial-gradient(circle at 25% 25%, rgba(251,191,36,.95), rgba(251,191,36,.25) 25%, transparent 26%),
-        linear-gradient(135deg, rgba(220,38,38,.95), rgba(127,29,29,.95));
-      border:1px solid rgba(251,191,36,.35);
-      box-shadow: inset 0 1px 0 rgba(255,255,255,.08), 0 8px 20px rgba(0,0,0,.35);
-      flex-shrink:0;
-    }
-
-    .brand-logo::before,
-    .brand-logo::after{
-      content:"";
-      position:absolute;
-      border-radius:999px;
-      border:2px solid rgba(255,255,255,.22);
-    }
-    .brand-logo::before{width:32px;height:32px;left:10px;top:10px}
-    .brand-logo::after{width:14px;height:14px;left:19px;top:19px}
-
-    .brand-text{min-width:0}
-    .brand-title{
-      font-size:clamp(18px, 3vw, 24px);
-      font-weight:900;
-      letter-spacing:.02em;
-      white-space:nowrap;
-      overflow:hidden;
-      text-overflow:ellipsis;
-    }
-    .brand-sub{
-      font-size:12px;
-      color:var(--muted);
-      white-space:nowrap;
-      overflow:hidden;
-      text-overflow:ellipsis;
-    }
-
-    .top-actions{
-      display:flex;
-      gap:8px;
-      flex-wrap:wrap;
-      justify-content:flex-end;
-    }
-
-    .screen{
-      display:none;
-      animation:fadeIn .18s ease;
-    }
-    .screen.active{display:block}
-
-    @keyframes fadeIn{
-      from{opacity:.4; transform:translateY(4px)}
-      to{opacity:1; transform:translateY(0)}
-    }
-
-    .hero{
-      position:relative;
-      overflow:hidden;
-      background:
-        linear-gradient(145deg, rgba(18,27,43,.96), rgba(10,15,24,.98)),
-        linear-gradient(90deg, rgba(220,38,38,.12), rgba(251,191,36,.08));
+    .app{max-width:1320px;margin:0 auto;padding:14px}
+    .shell,.panel,.sheet{
+      background:linear-gradient(180deg, rgba(16,24,39,.96), rgba(8,13,24,.96));
       border:1px solid rgba(251,191,36,.12);
-      border-radius:28px;
-      box-shadow:var(--shadow);
-      padding:16px;
-      margin-bottom:14px;
+      border-radius:26px;
+      box-shadow:0 18px 44px rgba(0,0,0,.30);
     }
-
-    .hero::before{
-      content:"";
-      position:absolute;
-      inset:-1px;
-      pointer-events:none;
-      background:
-        radial-gradient(250px 120px at 0% 0%, rgba(220,38,38,.14), transparent 60%),
-        radial-gradient(280px 140px at 100% 0%, rgba(251,191,36,.10), transparent 60%);
+    .shell{padding:18px;margin-bottom:14px;position:sticky;top:0;z-index:5;backdrop-filter:blur(8px)}
+    .brand{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap}
+    .title{font-size:clamp(28px,4vw,40px);font-weight:900;letter-spacing:.02em}
+    .subtitle{font-size:14px;color:var(--muted);margin-top:6px}
+    .tabs,.row,.stack{display:flex;gap:8px;flex-wrap:wrap}
+    .tabs{margin-top:14px}
+    .stack{flex-direction:column}
+    button,select,input,textarea{
+      background:var(--panel2);color:var(--text);border:1px solid var(--line);
+      border-radius:16px;padding:11px 14px;font:inherit
     }
-
-    .hero-row{
-      display:flex;
-      align-items:flex-start;
-      justify-content:space-between;
-      gap:12px;
-      flex-wrap:wrap;
-      position:relative;
-      z-index:1;
-    }
-
-    .hero-title{
-      font-size:clamp(22px, 5vw, 34px);
-      font-weight:900;
-      margin:0;
-    }
-
-    .hero-sub{
-      color:var(--muted);
-      margin-top:6px;
-      font-size:13px;
-    }
-
-    .hero-badges{
-      display:flex;
-      flex-wrap:wrap;
-      gap:8px;
-      margin-top:12px;
-    }
-
-    .badge{
-      display:inline-flex;
-      align-items:center;
-      gap:6px;
-      border-radius:999px;
-      padding:8px 12px;
-      font-size:12px;
-      font-weight:800;
-      border:1px solid rgba(251,191,36,.18);
-      background:rgba(11,18,32,.75);
-      color:var(--text);
-    }
-
-    .badge.red{background:rgba(127,29,29,.35); border-color:rgba(220,38,38,.25)}
-    .badge.gold{background:rgba(146,64,14,.22); border-color:rgba(251,191,36,.25)}
-    .badge.green{background:rgba(6,95,70,.28); border-color:rgba(16,185,129,.25)}
-
-    .grid{
-      display:grid;
-      gap:14px;
-    }
-
-    .grid.stats{
-      grid-template-columns:repeat(2, minmax(0,1fr));
-    }
-
-    .grid.cards{
-      grid-template-columns:1fr;
-    }
-
-    .grid.two{
-      grid-template-columns:1fr;
-    }
-
-    .grid.three{
-      grid-template-columns:1fr;
-    }
-
-    @media (min-width:768px){
-      .grid.stats{grid-template-columns:repeat(4, minmax(0,1fr))}
-      .grid.cards{grid-template-columns:repeat(2, minmax(0,1fr))}
-      .grid.two{grid-template-columns:1.2fr .8fr}
-      .grid.three{grid-template-columns:repeat(3, minmax(0,1fr))}
-    }
-
-    @media (min-width:1100px){
-      .grid.cards{grid-template-columns:repeat(3, minmax(0,1fr))}
-    }
-
-    .card, .panel{
-      position:relative;
-      overflow:hidden;
-      background:
-        linear-gradient(180deg, rgba(18,27,43,.98), rgba(12,19,31,.98));
-      border:1px solid rgba(51,71,102,.6);
-      border-radius:var(--radius);
-      box-shadow:var(--shadow);
-    }
-
+    textarea{width:100%}
+    button{cursor:pointer}
+    .tab.active,.primary{background:linear-gradient(90deg,var(--red),var(--gold));color:#111827;border-color:#fde68a;font-weight:700}
+    .green{background:var(--green);border-color:transparent}.amber{background:var(--amber);border-color:transparent}
+    .ghost{background:transparent}
+    .grid{display:grid;gap:14px}
+    .three{grid-template-columns:repeat(3,1fr)}
+    .two{grid-template-columns:repeat(2,1fr)}
     .panel{padding:14px}
-    .card{padding:14px}
-
-    .card::before,
-    .panel::before{
-      content:"";
-      position:absolute;
-      inset:0;
-      pointer-events:none;
-      background:
-        radial-gradient(120px 60px at 0% 0%, rgba(220,38,38,.05), transparent 60%),
-        radial-gradient(140px 70px at 100% 0%, rgba(251,191,36,.05), transparent 60%);
-    }
-
-    .card-title, .panel-title{
-      font-size:18px;
-      font-weight:900;
-      margin:0 0 6px;
-      position:relative;
-      z-index:1;
-    }
-
+    .panel-title{font-weight:800;font-size:18px}
     .muted{color:var(--muted)}
-    .small{font-size:12px}
-    .tiny{font-size:11px}
-    .strong{font-weight:800}
-    .empty{
-      padding:18px;
-      border:1px dashed rgba(148,163,184,.25);
-      border-radius:18px;
-      color:var(--muted);
-      text-align:center;
-      background:rgba(11,18,32,.4);
+    .small{font-size:13px}
+    .hero-num{font-size:32px;font-weight:900}
+    .table-wrap{overflow:auto;border-radius:20px;border:1px solid var(--line)}
+    table{width:100%;border-collapse:collapse;min-width:720px}
+    th,td{padding:12px 10px;border-bottom:1px solid rgba(255,255,255,.06);text-align:left;vertical-align:top}
+    th{position:sticky;top:0;background:#111827;color:#fde68a;z-index:1}
+    .pill{display:inline-flex;gap:6px;align-items:center;padding:6px 10px;border-radius:999px;background:#0f172a;border:1px solid var(--line);font-size:12px}
+    .pill.ok{background:rgba(5,150,105,.18);border-color:rgba(5,150,105,.35)}
+    .pill.warn{background:rgba(217,119,6,.18);border-color:rgba(217,119,6,.35)}
+    .pill.bad{background:rgba(220,38,38,.18);border-color:rgba(220,38,38,.35)}
+    .card{
+      background:linear-gradient(180deg, rgba(19,29,48,.86), rgba(9,14,25,.86));
+      border:1px solid rgba(255,255,255,.06);border-radius:20px;padding:12px
     }
-
-    .row{
-      display:flex;
-      gap:10px;
-      flex-wrap:wrap;
-      align-items:center;
+    .player{display:grid;grid-template-columns:1.1fr .7fr .7fr auto;gap:8px;align-items:center}
+    .field{display:flex;flex-direction:column;gap:6px}
+    .field label{font-size:12px;color:var(--muted)}
+    .view.hidden{display:none}
+    .coach-chip{padding:8px 10px;border-radius:14px;background:#0f172a;border:1px solid var(--line)}
+    .calendar{display:grid;grid-template-columns:repeat(7,1fr);gap:8px}
+    .day{
+      min-height:120px;padding:8px;border-radius:18px;background:#0f172a;border:1px solid var(--line)
     }
-
-    .row.spread{
-      justify-content:space-between;
-    }
-
-    .stack{
-      display:flex;
-      flex-direction:column;
-      gap:10px;
-    }
-
-    .stat-value{
-      font-size:28px;
-      line-height:1;
-      font-weight:900;
-      margin-top:8px;
-    }
-
-    .pill{
-      display:inline-flex;
-      align-items:center;
-      gap:6px;
-      padding:8px 12px;
-      border-radius:999px;
-      font-size:12px;
-      font-weight:800;
-      background:linear-gradient(90deg, rgba(220,38,38,.95), rgba(251,191,36,.9));
-      color:#111827;
-      border:none;
-    }
-
-    button, input, select, textarea{
-      font:inherit;
-      color:var(--text);
-    }
-
-    button{
-      border:none;
-      cursor:pointer;
-      border-radius:16px;
-      padding:12px 14px;
-      min-height:44px;
-      transition:transform .08s ease, filter .12s ease, opacity .12s ease;
-      touch-action:manipulation;
-    }
-    button:active{transform:scale(.985)}
-    button:disabled{opacity:.5; cursor:not-allowed}
-
-    .btn{
-      background:linear-gradient(180deg, #172234, #111a28);
-      color:var(--text);
-      border:1px solid rgba(51,71,102,.8);
-      box-shadow: inset 0 1px 0 rgba(255,255,255,.04);
-    }
-
-    .btn:hover{filter:brightness(1.06)}
-
-    .btn-primary{
-      background:linear-gradient(135deg, var(--red), var(--gold));
-      color:#111827;
-      font-weight:900;
-      border:1px solid rgba(255,255,255,.18);
-      box-shadow: inset 0 1px 0 rgba(255,255,255,.12);
-    }
-
-    .btn-red{
-      background:linear-gradient(180deg, rgba(220,38,38,.92), rgba(153,27,27,.92));
-      color:#fff;
-      font-weight:800;
-      border:1px solid rgba(255,255,255,.08);
-    }
-
-    .btn-green{
-      background:linear-gradient(180deg, rgba(16,185,129,.92), rgba(5,150,105,.92));
-      color:#fff;
-      font-weight:800;
-      border:1px solid rgba(255,255,255,.08);
-    }
-
-    .btn-gold{
-      background:linear-gradient(180deg, rgba(251,191,36,.95), rgba(217,119,6,.92));
-      color:#111827;
-      font-weight:900;
-      border:1px solid rgba(255,255,255,.08);
-    }
-
-    .btn-blue{
-      background:linear-gradient(180deg, rgba(59,130,246,.92), rgba(37,99,235,.92));
-      color:#fff;
-      font-weight:800;
-      border:1px solid rgba(255,255,255,.08);
-    }
-
-    .btn-sm{
-      padding:9px 12px;
-      min-height:38px;
-      border-radius:14px;
-      font-size:13px;
-    }
-
-    input, select, textarea{
-      width:100%;
-      border-radius:16px;
-      border:1px solid rgba(51,71,102,.8);
-      background:linear-gradient(180deg, rgba(13,20,32,.95), rgba(9,14,24,.95));
-      padding:12px 14px;
-      outline:none;
-      box-shadow: inset 0 1px 0 rgba(255,255,255,.03);
-    }
-
-    input:focus, select:focus, textarea:focus{
-      border-color:rgba(251,191,36,.35);
-      box-shadow:0 0 0 3px rgba(251,191,36,.08), inset 0 1px 0 rgba(255,255,255,.03);
-    }
-
-    textarea{
-      min-height:96px;
-      resize:vertical;
-    }
-
-    .table-wrap{
-      width:100%;
-      overflow:auto;
-      border-radius:18px;
-      border:1px solid rgba(51,71,102,.45);
-      background:rgba(10,15,24,.55);
-    }
-
-    table{
-      width:100%;
-      min-width:760px;
-      border-collapse:collapse;
-    }
-
-    th, td{
-      padding:12px 10px;
-      text-align:left;
-      border-bottom:1px solid rgba(36,50,71,.8);
-      vertical-align:top;
-      font-size:14px;
-    }
-
-    th{
-      position:sticky;
-      top:0;
-      z-index:1;
-      background:rgba(12,19,31,.95);
-      backdrop-filter: blur(8px);
-      color:#fca5a5;
-      font-size:12px;
-      text-transform:uppercase;
-      letter-spacing:.04em;
-    }
-
-    .status{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      min-width:92px;
-      padding:6px 10px;
-      border-radius:999px;
-      font-size:12px;
-      font-weight:900;
-      border:1px solid transparent;
-    }
-
-    .status-paid{background:rgba(6,95,70,.28); color:#a7f3d0; border-color:rgba(16,185,129,.22)}
-    .status-unpaid{background:rgba(127,29,29,.3); color:#fecaca; border-color:rgba(220,38,38,.22)}
-    .status-partial{background:rgba(146,64,14,.28); color:#fde68a; border-color:rgba(251,191,36,.22)}
-    .status-present{background:rgba(6,95,70,.28); color:#a7f3d0; border-color:rgba(16,185,129,.22)}
-    .status-late{background:rgba(146,64,14,.28); color:#fde68a; border-color:rgba(251,191,36,.22)}
-    .status-absent{background:rgba(127,29,29,.3); color:#fecaca; border-color:rgba(220,38,38,.22)}
-
-    .quick-grid{
-      display:grid;
-      grid-template-columns:repeat(2, minmax(0,1fr));
-      gap:10px;
-    }
-
-    @media (min-width:768px){
-      .quick-grid{grid-template-columns:repeat(4, minmax(0,1fr))}
-    }
-
-    .quick-btn{
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      min-height:64px;
-      text-align:center;
-      font-weight:900;
-      border-radius:18px;
+    .day h4{margin:0 0 8px;font-size:12px;color:#fde68a}
+    .day .date{font-size:12px;font-weight:800}
+    .session{margin-top:6px;padding:6px 8px;border-radius:12px;background:#131d30;border:1px solid #223148;font-size:12px}
+    .board{
+      position:relative;height:540px;border-radius:24px;overflow:hidden;border:1px solid rgba(255,255,255,.08);
       background:
-        linear-gradient(180deg, rgba(18,27,43,.98), rgba(12,19,31,.98));
-      border:1px solid rgba(51,71,102,.8);
+        radial-gradient(circle at center, rgba(255,255,255,.03), transparent 22%),
+        linear-gradient(180deg,#0d5d2d,#0a4f26 45%, #0a4520);
+      touch-action:none;
     }
-
-    .quick-btn.active{
-      border-color:rgba(251,191,36,.35);
-      box-shadow:0 0 0 2px rgba(251,191,36,.06) inset;
+    .line{position:absolute;background:rgba(255,255,255,.9)}
+    .outline{inset:18px;border:2px solid rgba(255,255,255,.9);border-radius:16px;background:transparent}
+    .mid{top:18px;bottom:18px;left:50%;width:2px;transform:translateX(-50%)}
+    .circle{left:50%;top:50%;width:92px;height:92px;border-radius:50%;border:2px solid rgba(255,255,255,.9);transform:translate(-50%,-50%);background:transparent}
+    .box-top,.box-bot{position:absolute;left:50%;transform:translateX(-50%);width:180px;height:72px;border:2px solid rgba(255,255,255,.82)}
+    .box-top{top:18px;border-top:none}.box-bot{bottom:18px;border-bottom:none}
+    .marker{
+      position:absolute;transform:translate(-50%,-50%);width:48px;height:48px;border-radius:50%;
+      display:flex;align-items:center;justify-content:center;font-weight:900;border:2px solid rgba(255,255,255,.85);
+      box-shadow:0 10px 22px rgba(0,0,0,.28);cursor:grab;touch-action:none
     }
-
-    .list{
-      display:flex;
-      flex-direction:column;
-      gap:10px;
+    .marker.red{background:linear-gradient(135deg,#ef4444,#991b1b)}
+    .marker.gold{background:linear-gradient(135deg,#fde68a,#f59e0b);color:#111827}
+    .marker span{pointer-events:none}
+    .sheet-wrap{position:fixed;inset:0;background:rgba(0,0,0,.45);display:none;align-items:flex-end;justify-content:center;padding:14px;z-index:20}
+    .sheet-wrap.show{display:flex}
+    .sheet{max-width:760px;width:100%;padding:16px;max-height:88vh;overflow:auto}
+    .mobile-dock{
+      position:sticky;bottom:10px;z-index:6;display:none;margin-top:14px;
+      background:rgba(8,13,24,.88);backdrop-filter:blur(8px);padding:8px;border:1px solid rgba(255,255,255,.06);border-radius:22px
     }
-
-    .player-item{
-      display:flex;
-      gap:10px;
-      align-items:center;
-      justify-content:space-between;
-      padding:12px;
-      border-radius:18px;
-      border:1px solid rgba(51,71,102,.55);
-      background:rgba(11,18,32,.7);
+    .dock-btn{flex:1;min-width:88px}
+    @media (max-width:980px){
+      .three{grid-template-columns:1fr}.two{grid-template-columns:1fr}
+      .player{grid-template-columns:1fr}
+      .mobile-dock{display:flex;gap:8px;overflow:auto}
+      .tabs{display:none}
+      .shell{position:static}
     }
-
-    .player-main{
-      min-width:0;
-      flex:1;
+    .mobile-sticky-note{
+      position:sticky; bottom:10px; z-index:30; margin-top:14px;
+      display:flex; justify-content:center;
     }
-
-    .player-name{
-      font-weight:900;
-      white-space:nowrap;
-      overflow:hidden;
-      text-overflow:ellipsis;
-    }
-
-    .player-meta{
-      color:var(--muted);
-      font-size:12px;
-      margin-top:4px;
-    }
-
-    .divider{
-      height:1px;
-      background:linear-gradient(90deg, transparent, rgba(251,191,36,.12), transparent);
-      margin:8px 0;
-    }
-
-    .nav{
-      position:fixed;
-      left:10px;
-      right:10px;
-      bottom:10px;
-      z-index:60;
-      padding-bottom: max(0px, var(--safe-b));
-      background:rgba(9,14,24,.95);
-      border:1px solid rgba(251,191,36,.10);
-      border-radius:24px;
-      box-shadow:0 20px 60px rgba(0,0,0,.55);
-      backdrop-filter: blur(14px);
-    }
-
-    .nav-grid{
-      display:grid;
-      grid-template-columns:repeat(4, minmax(0,1fr));
-      gap:6px;
-      padding:8px;
-    }
-
-    @media (min-width:760px){
-      .nav-grid{
-        grid-template-columns:repeat(8, minmax(0,1fr));
-      }
-    }
-
-    .nav-btn{
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      justify-content:center;
-      gap:4px;
-      min-height:58px;
-      border-radius:18px;
-      background:transparent;
-      color:var(--muted);
-      font-size:11px;
-      font-weight:800;
-      padding:8px 6px;
-      border:1px solid transparent;
-    }
-
-    .nav-btn .icon{
-      width:24px;height:24px;border-radius:10px;
-      display:grid;place-items:center;
-      background:rgba(255,255,255,.03);
-      border:1px solid rgba(255,255,255,.03);
-      font-size:13px;
-    }
-
-    .nav-btn.active{
-      color:#fff;
-      background:linear-gradient(180deg, rgba(127,29,29,.32), rgba(146,64,14,.18));
-      border-color:rgba(251,191,36,.18);
-    }
-
-    .nav-btn.active .icon{
-      background:linear-gradient(135deg, var(--red), var(--gold));
-      color:#111827;
-      border-color:rgba(255,255,255,.08);
-    }
-
-    .calendar-head,
-    .calendar-grid{
-      display:grid;
-      grid-template-columns:repeat(7, minmax(0,1fr));
-      gap:8px;
-    }
-
-    .calendar-day{
-      min-height:96px;
-      border-radius:16px;
-      border:1px solid rgba(51,71,102,.55);
-      background:rgba(11,18,32,.68);
-      padding:8px;
-      display:flex;
-      flex-direction:column;
-      gap:6px;
-      position:relative;
-      overflow:hidden;
-    }
-
-    .calendar-day.has-events{
-      border-color:rgba(251,191,36,.22);
-      box-shadow: inset 0 0 0 1px rgba(251,191,36,.05);
-    }
-
-    .calendar-day.today{
-      outline:2px solid rgba(220,38,38,.28);
-      outline-offset:-2px;
-    }
-
-    .calendar-num{
-      font-size:13px;
-      font-weight:900;
-    }
-
-    .calendar-tag{
-      font-size:10px;
-      font-weight:900;
-      border-radius:999px;
-      padding:4px 6px;
-      display:inline-flex;
-      align-self:flex-start;
-      background:rgba(127,29,29,.32);
-      color:#fecaca;
-      border:1px solid rgba(220,38,38,.18);
-      white-space:nowrap;
-      max-width:100%;
-      overflow:hidden;
-      text-overflow:ellipsis;
-    }
-
-    .calendar-more{
-      font-size:10px;
-      color:var(--muted);
-    }
-
-    .pitch-card{
-      padding:0;
-      overflow:hidden;
-    }
-
-    .tactics-toolbar{
-      padding:14px;
-      border-bottom:1px solid rgba(36,50,71,.7);
-      background:rgba(9,14,24,.6);
-      position:sticky;
-      top:calc(var(--header-h) + env(safe-area-inset-top, 0px) + 6px);
-      z-index:4;
+    .mobile-sticky-note .chip{
+      display:inline-flex; align-items:center; gap:8px;
+      padding:10px 14px; border-radius:999px;
+      background:rgba(11,18,32,.92); border:1px solid rgba(251,191,36,.18);
+      color:#f8fafc; font-size:12px; box-shadow:0 10px 24px rgba(0,0,0,.35);
       backdrop-filter: blur(10px);
     }
-
-    .pitch-wrap{
-      position:relative;
-      width:100%;
-      height:min(70vh, 640px);
-      min-height:420px;
-      background:
-        linear-gradient(180deg, rgba(4,120,87,.95), rgba(6,78,59,.95));
-      touch-action:none;
-      user-select:none;
-      overflow:hidden;
-    }
-
-    .pitch-line{
-      position:absolute;
-      background:rgba(255,255,255,.88);
-    }
-
-    .pitch-half{left:50%; top:14px; bottom:14px; width:2px; transform:translateX(-50%)}
-    .pitch-circle{
-      position:absolute;
-      width:96px;height:96px;
-      left:50%;top:50%;
-      transform:translate(-50%,-50%);
-      border:2px solid rgba(255,255,255,.88);
-      border-radius:999px;
-    }
-
-    .pitch-box-top, .pitch-box-bottom{
-      position:absolute;
-      left:18%;
-      right:18%;
-      height:76px;
-      border:2px solid rgba(255,255,255,.88);
-    }
-    .pitch-box-top{top:14px;border-top-left-radius:18px;border-top-right-radius:18px}
-    .pitch-box-bottom{bottom:14px;border-bottom-left-radius:18px;border-bottom-right-radius:18px}
-
-    .marker{
-      position:absolute;
-      transform:translate(-50%,-50%);
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      gap:4px;
-      z-index:2;
-    }
-
-    .marker-dot{
-      width:46px;height:46px;border-radius:999px;
-      display:grid;place-items:center;
-      font-size:13px;font-weight:900;
-      border:2px solid rgba(255,255,255,.92);
-      box-shadow:0 10px 24px rgba(0,0,0,.28);
-      touch-action:none;
-      user-select:none;
-      cursor:grab;
-    }
-
-    .marker-dot:active{cursor:grabbing}
-    .marker-red{background:linear-gradient(180deg, #ef4444, #b91c1c)}
-    .marker-gold{background:linear-gradient(180deg, #fbbf24, #d97706); color:#111827; border-color:#fff3c4}
-
-    .marker-label{
-      min-width:56px;
-      max-width:72px;
-      text-align:center;
-      font-size:11px;
-      font-weight:800;
-      border-radius:10px;
-      border:1px solid rgba(255,255,255,.08);
-      background:rgba(9,14,24,.85);
-      padding:4px 6px;
-      overflow:hidden;
-      text-overflow:ellipsis;
-      white-space:nowrap;
-    }
-
-    .svg-lines{
-      position:absolute;
-      inset:0;
-      width:100%;
-      height:100%;
-      pointer-events:none;
-      z-index:1;
-    }
-
-    .inline-form{
-      display:grid;
-      grid-template-columns:1fr;
-      gap:10px;
-    }
-
-    @media (min-width:640px){
-      .inline-form.two{grid-template-columns:1fr 1fr}
-      .inline-form.three{grid-template-columns:1fr 1fr 1fr}
-      .inline-form.four{grid-template-columns:1fr 1fr 1fr 1fr}
-    }
-
-    .chip-row{
-      display:flex;
-      gap:8px;
-      flex-wrap:wrap;
-    }
-
-    .chip{
-      padding:8px 12px;
-      border-radius:999px;
-      font-size:12px;
-      font-weight:900;
-      border:1px solid rgba(51,71,102,.8);
-      background:rgba(11,18,32,.7);
-      cursor:pointer;
-    }
-
-    .chip.active{
-      background:linear-gradient(135deg, rgba(220,38,38,.9), rgba(251,191,36,.9));
-      color:#111827;
-      border-color:rgba(255,255,255,.12);
-    }
-
-    .hint{
-      color:var(--muted);
-      font-size:12px;
-      line-height:1.5;
-    }
-
-    .section-space{margin-top:14px}
   </style>
 </head>
 <body>
-  <div class="app" id="app">
-    <div class="topbar">
-      <div class="topbar-inner">
-        <div class="brand">
-          <div class="brand-logo"></div>
-          <div class="brand-text">
-            <div class="brand-title">Fenomen App</div>
-            <div class="brand-sub">FC Fenomen • academy management • mobile first</div>
-          </div>
-        </div>
-        <div class="top-actions">
-          <button class="btn btn-sm" id="quickExportBtn">JSON</button>
-          <button class="btn btn-sm" id="quickImportBtn">Імпорт</button>
-          <input type="file" id="importFileInput" accept="application/json" hidden />
-        </div>
+<div class="app" id="app">
+  <div class="shell">
+    <div class="brand">
+      <div>
+        <div class="title">FENOMEN HUB</div>
+        <div class="subtitle">Повна система академії • GitHub-ready • localStorage</div>
+      </div>
+      <div class="row">
+        <button onclick="app.exportJson()">Експорт JSON</button>
+        <button onclick="document.getElementById('importFile').click()">Імпорт JSON</button>
+        <button onclick="app.exportCsv()">Експорт CSV</button>
+        <input id="importFile" type="file" accept="application/json" hidden />
       </div>
     </div>
 
-    <!-- TODAY -->
-    <section class="screen active" id="screen-today">
-      <div class="hero">
-        <div class="hero-row">
-          <div>
-            <h1 class="hero-title">Сьогодні</h1>
-            <div class="hero-sub" id="todayHeroSub">Поточний день, задачі, тренування та швидкі дії</div>
-            <div class="hero-badges">
-              <div class="badge red" id="badgeTodayDate">—</div>
-              <div class="badge gold" id="badgeTodayTrainings">Тренувань: 0</div>
-              <div class="badge green" id="badgeTodayTasks">Задач: 0</div>
-            </div>
-          </div>
-          <div class="pill">FC FENOMEN</div>
-        </div>
-      </div>
+    <div class="tabs" id="tabs"></div>
 
-      <div class="grid stats">
-        <div class="card">
-          <div class="muted small">Статус дня</div>
-          <div class="stat-value" id="todayStatusCount">0</div>
-          <div class="muted small">активних тренувань сьогодні</div>
-        </div>
-        <div class="card">
-          <div class="muted small">Гравців на сьогодні</div>
-          <div class="stat-value" id="todayPlayersCount">0</div>
-          <div class="muted small">у вибраних активностях</div>
-        </div>
-        <div class="card">
-          <div class="muted small">Боргів</div>
-          <div class="stat-value" id="todayDebtorsCount">0</div>
-          <div class="muted small">неоплачених карток</div>
-        </div>
-        <div class="card">
-          <div class="muted small">Attendance %</div>
-          <div class="stat-value" id="todayAttendanceRate">0%</div>
-          <div class="muted small">по всій базі</div>
-        </div>
-      </div>
+    <div class="mobile-dock">
+      <button class="dock-btn" onclick="app.setTab('dashboard')">Головна</button>
+      <button class="dock-btn" onclick="app.setTab('attendance')">Відмітка</button>
+      <button class="dock-btn" onclick="app.setTab('payments')">Оплати</button>
+      <button class="dock-btn" onclick="app.setTab('finance')">Фінанси</button>
+      <button class="dock-btn" onclick="app.setTab('groups')">Групи</button>
+      <button class="dock-btn" onclick="app.setTab('trainers')">Тренери</button>
+    </div>
+  </div>
 
-      <div class="panel section-space">
-        <div class="panel-title">Швидкі дії</div>
-        <div class="quick-grid section-space">
-          <button class="quick-btn" data-nav="attendance">Відкрити відмітку</button>
-          <button class="quick-btn" data-nav="payments">Перевірити оплати</button>
-          <button class="quick-btn" data-nav="tactics">Тактична дошка</button>
-          <button class="quick-btn" data-nav="calendar">Календар</button>
-        </div>
-      </div>
+  <div id="hero"></div>
 
-      <div class="grid two section-space">
+  <div id="view-dashboard" class="view"></div>
+  <div id="view-locations" class="view hidden"></div>
+  <div id="view-today" class="view hidden"></div>
+  <div id="view-attendance" class="view hidden"></div>
+  <div id="view-payments" class="view hidden"></div>
+  <div id="view-debtors" class="view hidden"></div>
+  <div id="view-trainers" class="view hidden"></div>
+  <div id="view-groups" class="view hidden"></div>
+  <div id="view-activities" class="view hidden"></div>
+  <div id="view-finance" class="view hidden"></div>
+  <div id="view-tactics" class="view hidden"></div>
+  <div id="view-admin" class="view hidden"></div>
+  <div id="view-export" class="view hidden"></div>
+</div>
+
+<div class="sheet-wrap" id="sheetWrap">
+  <div class="sheet">
+    <div class="row" style="justify-content:space-between;align-items:center;margin-bottom:10px">
+      <div class="panel-title" id="sheetTitle">Деталі</div>
+      <button onclick="app.closeSheet()">Закрити</button>
+    </div>
+    <div id="sheetBody"></div>
+  </div>
+</div>
+
+<script>
+const STORAGE_KEY = 'fenomen_app_real_v2';
+const YEAR = new Date().getFullYear();
+const MONTHS = ['Січень','Лютий','Березень','Квітень','Травень','Червень','Липень','Серпень','Вересень','Жовтень','Листопад','Грудень'];
+const WEEKDAYS = ['Нд','Пн','Вт','Ср','Чт','Пт','Сб'];
+const TABS = [['dashboard','Дашборд'],['locations','Гравці'],['groups','Групи'],['today','Сьогодні'],['activities','Активності'],['attendance','Відвідування'],['payments','Оплати'],['finance','Фінанси'],['debtors','Боржники'],['trainers','Тренери'],['tactics','Тактика'],['admin','Адмін'],['export','Експорт']];
+
+const TRAINERS = [
+  { name:'Ілля Топалов', role:'Тренер / керівник', salary:30000 },
+  { name:'Олександр Шипулов', role:'Тренер', salary:25000 },
+  { name:'Михайло Шершень', role:'Тренер', salary:28000 },
+  { name:'Наталія Шерчень', role:'Адміністратор', salary:20000 }
+];
+const LOCATIONS = [
+  {name:'Блиставиця', trainer:'Олександр Шипулов', price:1400, days:['Пн','Ср','Пт']},
+  {name:'Синяк', trainer:'Ілля Топалов', price:1400, days:['Пн','Ср','Пт']},
+  {name:'Бабинці', trainer:'Олександр Шипулов', price:1400, days:['Вт','Чт','Сб']},
+  {name:'Нове Залісся', trainer:'Олександр Шипулов', price:1200, days:['Чт','Пт']},
+  {name:'Луб’янка', trainer:'Ілля Топалов', price:1400, days:['Вт','Чт','Сб']},
+  {name:'Буча', trainer:'Михайло Шершень', price:1400, days:['Вт','Чт','Сб']}
+];
+
+const RAW = [
+  ['Чиренко Софія','Блиставиця'],['Денисюк Тимофій','Блиставиця'],['Денисюк Платон','Блиставиця'],['Головенець Лука','Блиставиця'],['Католіченко Влад','Блиставиця'],['Кулаков Ілля','Блиставиця'],['Сліпенко Степан','Блиставиця'],['Войтович Михайло','Блиставиця'],['Колесник Маргарита','Блиставиця'],['Ткачик Дарина','Блиставиця'],['Гребенюк Поліна','Блиставиця'],['Пелешок Андрій','Блиставиця'],['Шевченко Тимофій','Блиставиця'],['Католіченко Артем','Блиставиця'],['Круковець Матвій','Блиставиця'],['Семерок Ангеліна','Блиставиця'],['Пилипенко Артем','Блиставиця'],['Демченко Анна','Блиставиця'],['Прокаєва Анна','Блиставиця'],['Степанюк Матвій','Блиставиця'],['Степанюк Макар','Блиставиця'],['Міль Антон','Блиставиця'],['Фурманчук Богдан','Блиставиця'],['Туровський','Блиставиця'],['Слобожан Захар','Блиставиця'],['Запорожець Гліб','Блиставиця'],['Клименко Даніл','Блиставиця'],
+  ['Розлач Іван','Синяк'],['Космацький Даніель','Синяк'],['Ганжа Андрій','Синяк'],['Смірнов Назар','Синяк'],['Ратних Ярослав','Синяк'],['Гаврилов Гліб','Синяк'],['Корж Тимофій','Синяк'],['Шевчук Матвій','Синяк'],['Петренко Юрій','Синяк'],['Ганіцький Сергій','Синяк'],['Посох Дмитро','Синяк'],['Єриго Павло','Синяк'],['Приймак Владислав','Синяк'],['Лисенко Василь','Синяк'],['Травянко Тимур','Синяк'],['Зінченко Денис','Синяк'],['Хижняк Іван','Синяк'],['Колісніченко Мирослав','Синяк'],['Терещенко Іван','Синяк'],['Павлов Лев','Синяк'],['Лисенко Василь','Синяк'],['Щуренко Евгеній','Синяк'],['Теребій Давид','Синяк'],['Чамата Назар','Синяк'],['Федоренко Макар','Синяк'],['Лавицький Ростислав','Синяк'],['Лелека Нікіта','Синяк'],['Мармелюк Макар','Синяк'],['Мармелюк Iлля','Синяк'],['Архипенко Дмитро','Синяк'],['Коваленко Владислав','Синяк'],['Фалько Динил','Синяк'],['Стецюк Матвій','Синяк'],['Стецюк Назар','Синяк'],['Зінченко Валерія','Синяк'],
+  ['Безсмертний Олександр','Бабинці'],['Олексюк Віктор','Бабинці'],['Ткач Данііл','Бабинці'],['Щербаков Матвій','Бабинці'],['Павлюченко Кирилл','Бабинці'],['Ромашкін Богдан','Бабинці'],['Логвиненко Денис','Бабинці'],['Моргун Арсен','Бабинці'],['Гудков Андрій','Бабинці'],['Ренцевич Роман','Бабинці'],['Матейко Соломія','Бабинці'],['Кизим Дмитро','Бабинці'],['Іваненко Дмитро','Бабинці'],['Самусенко Максим','Бабинці'],['Прибильський Іван','Бабинці'],['Шкурка Олександр','Бабинці'],['Болілий Вадим','Бабинці'],['Дрондін Артем','Бабинці'],['Щелкунов Арсен','Бабинці'],['Примаченко Тимофіі','Бабинці'],['Кубицький Антон','Бабинці'],['Добривечор Артем','Бабинці'],['Мазепа Нікіта','Бабинці'],['Порубов Олексій','Бабинці'],['Мадяр Даніель','Бабинці'],['Яковенко Гліб','Бабинці'],['Конфорович','Бабинці'],['Лелека Нікіта','Бабинці'],['Стариш','Бабинці'],['Клєвцов Роман','Бабинці'],['Макарчук Артем','Бабинці'],['Булацький','Бабинці'],['Моісеєнко Артем','Бабинці'],['Сотніков Олександр','Бабинці'],['Реган Данил','Бабинці'],['Щербаков Тімур','Бабинці'],['Кравчук Тимофій','Бабинці'],['Вислоцький Артем','Бабинці'],
+  ['Романенко Роман','Нове Залісся'],['Кулакевич Захар','Нове Залісся'],['Лічман Дмитро','Нове Залісся'],['Плескань Даниїл','Нове Залісся'],['Рева Олександр','Нове Залісся'],['Гогсадзе Давид','Нове Залісся'],['Росовський Нікіта','Нове Залісся'],['Маслюківський Арсеній','Нове Залісся'],['Петрусенко Дмитро','Нове Залісся'],['Хрущ Ярослав','Нове Залісся'],['Гончаров Юрій','Нове Залісся'],['Тарай Тимофій','Нове Залісся']
+];
+
+function makePlayers(){
+  return RAW.map((r,i)=>{
+    const loc = LOCATIONS.find(l=>l.name===r[1]) || LOCATIONS[0];
+    return {
+      id: 'p'+(i+1),
+      name: r[0],
+      location: r[1],
+      group: i % 2 === 0 ? 'Молодша' : 'Старша',
+      dob: '',
+      age: '',
+      payment: 'Не оплачено',
+      debt: loc.price,
+      notes: '',
+      attendance: {},
+      number: i+1
+    };
+  });
+}
+
+function seedState(){
+  return {
+    tab:'dashboard',
+    q:'',
+    locationFilter:'Усі',
+    monthFilter:new Date().getMonth(),
+    players:makePlayers(),
+    adminName:'',
+    adminPhone:'',
+    adminLocation:LOCATIONS[0].name,
+    adminGroup:'Молодша',
+    tacticsFormation:'4-3-3',
+    savedBoards: [],
+    markers: [],
+    payroll: {},
+    locationRent: {}
+  };
+}
+
+const app = {
+  state: seedState(),
+
+  load(){
+    try{
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if(raw){
+        const parsed = JSON.parse(raw);
+        this.state = {...seedState(), ...parsed};
+      }
+    }catch(e){}
+    if(!Array.isArray(this.state.players) || !this.state.players.length){
+      this.state.players = makePlayers();
+    }
+    if(!Array.isArray(this.state.markers) || !this.state.markers.length){
+      this.state.markers = this.defaultMarkers(this.state.tacticsFormation);
+    }
+    this.ensureExtraLocations();
+    this.render();
+  },
+
+  ensureExtraLocations(){
+    LOCATIONS.forEach(loc=>{
+      const has = this.state.players.some(p=>p.location===loc.name);
+      if(!has){
+        // keep empty location available in app
+      }
+    });
+  },
+
+  save(){
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(this.state));
+  },
+
+  esc(s){
+    return String(s ?? '').replace(/[&<>"']/g, m=>({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[m]));
+  },
+
+  setTab(tab){
+    this.state.tab = tab;
+    this.render();
+  },
+
+  setQuery(v){
+    this.state.q = v;
+    this.renderLocations();
+  },
+
+  setLocationFilter(v){
+    this.state.locationFilter = v;
+    this.renderLocations();
+  },
+
+  setMonth(v){
+    this.state.monthFilter = Number(v);
+    this.render();
+  },
+
+  tabsHtml(){
+    return TABS.map(([key,label])=>`<button class="tab ${this.state.tab===key?'active':''}" onclick="app.setTab('${key}')">${label}</button>`).join('');
+  },
+
+  renderTabs(){
+    document.getElementById('tabs').innerHTML = this.tabsHtml();
+  },
+
+  showView(name){
+    document.querySelectorAll('.view').forEach(v=>v.classList.add('hidden'));
+    const target = document.getElementById(`view-${name}`) || document.getElementById('view-dashboard');
+    target.classList.remove('hidden');
+  },
+
+  filteredPlayers(){
+    return this.state.players.filter(p=>{
+      const q = this.state.q.trim().toLowerCase();
+      const okQ = !q || p.name.toLowerCase().includes(q) || String(p.number).includes(q);
+      const okLoc = this.state.locationFilter==='Усі' || p.location===this.state.locationFilter;
+      return okQ && okLoc;
+    });
+  },
+
+  sessions(){
+    const month = this.state.monthFilter;
+    const year = YEAR;
+    const last = new Date(year, month+1, 0).getDate();
+    const out = [];
+    for(let day=1; day<=last; day++){
+      const d = new Date(year, month, day);
+      const wd = WEEKDAYS[d.getDay()];
+      LOCATIONS.forEach(loc=>{
+        if((loc.days||[]).includes(wd)){
+          out.push({
+            date:`${year}-${String(month+1).padStart(2,'0')}-${String(day).padStart(2,'0')}`,
+            day:wd,
+            location:loc.name,
+            trainer:loc.trainer
+          });
+        }
+      });
+    }
+    return out;
+  },
+
+  todaySessions(){
+    const today = new Date();
+    const wd = WEEKDAYS[today.getDay()];
+    const date = `${today.getFullYear()}-${String(today.getMonth()+1).padStart(2,'0')}-${String(today.getDate()).padStart(2,'0')}`;
+    return LOCATIONS.filter(loc=>(loc.days||[]).includes(wd)).map(loc=>({
+      date, day:wd, location:loc.name, trainer:loc.trainer
+    }));
+  },
+
+  locationCount(name){
+    return this.state.players.filter(p=>p.location===name).length;
+  },
+
+  paymentStats(){
+    const paid = this.state.players.filter(p=>p.payment==='Оплачено').length;
+    const partial = this.state.players.filter(p=>p.payment==='Частково').length;
+    const unpaid = this.state.players.filter(p=>p.payment==='Не оплачено').length;
+    const income = this.state.players.reduce((s,p)=>{
+      if(p.payment==='Оплачено') return s + Number(p.debt||0);
+      if(p.payment==='Частково') return s + Math.round(Number(p.debt||0)/2);
+      return s;
+    },0);
+    return {paid,partial,unpaid,income};
+  },
+
+  attendanceStats(){
+    let present=0, absent=0, late=0;
+    this.state.players.forEach(p=>{
+      Object.values(p.attendance||{}).forEach(v=>{
+        if(v==='Був') present++;
+        else if(v==='Не був') absent++;
+        else if(v==='Запізнився') late++;
+      });
+    });
+    return {present,absent,late};
+  },
+
+  financeSummary(){
+    const month = `${YEAR}-${String(this.state.calendarMonth+1).padStart(2,'0')}`;
+    const paidPlayers = this.state.players.filter(p=>p.payment==='Оплачено').length;
+    const partialPlayers = this.state.players.filter(p=>p.payment==='Частково').length;
+    const debtors = this.state.players.filter(p=>p.payment!=='Оплачено').length;
+    const playerIncome = this.state.players.reduce((s,p)=> s + (p.payment==='Оплачено' ? Number(p.debt||0) : p.payment==='Частково' ? Math.round(Number(p.debt||0)/2) : 0), 0);
+
+    const payrollEntries = Object.keys(this.state.payroll || {}).filter(k=>k.startsWith(month+'_'));
+    const payrollTotal = payrollEntries.reduce((s,k)=> s + Number((this.state.payroll[k]||{}).salary || 0), 0);
+    const payrollPaid = payrollEntries.filter(k => (this.state.payroll[k]||{}).paid).length;
+
+    const rentEntries = Object.keys(this.state.locationRent || {}).filter(k=>k.startsWith(month+'_'));
+    const rentTotal = rentEntries.reduce((s,k)=> s + Number((this.state.locationRent[k]||{}).amount || 0), 0);
+    const rentPaid = rentEntries.filter(k => (this.state.locationRent[k]||{}).paid).length;
+
+    return { month, paidPlayers, partialPlayers, debtors, playerIncome, payrollTotal, payrollPaid, rentTotal, rentPaid };
+  },
+
+  renderGroupsView(){
+    const rows = LOCATIONS.map(loc=>{
+      const players = this.state.players.filter(p=>p.location===loc.name);
+      const younger = players.filter(p=>p.group==='Молодша').length;
+      const older = players.filter(p=>p.group==='Старша').length;
+      return `
         <div class="panel">
-          <div class="row spread">
+          <div class="row between">
             <div>
-              <div class="panel-title">Сьогоднішні тренування</div>
-              <div class="muted small">Тренування, які заплановані на поточну дату</div>
+              <div class="panel-title">${loc.name}</div>
+              <div class="small muted">${loc.trainer} • ${(loc.days||[]).join(' / ')} • ₴${loc.price}</div>
             </div>
-            <button class="btn btn-sm" data-nav="calendar">Календар</button>
+            <div class="pill ok">${players.length} дітей</div>
           </div>
-          <div class="list section-space" id="todayTrainingsList"></div>
+          <div class="row" style="margin-top:10px; flex-wrap:wrap">
+            <div class="pill">Молодша: ${younger}</div>
+            <div class="pill">Старша: ${older}</div>
+          </div>
+          <div class="small muted" style="margin-top:12px">${players.slice(0,14).map(p=>p.name).join(', ')}${players.length>14?' ...':''}</div>
         </div>
+      `;
+    }).join('');
+    document.getElementById('view-groups').innerHTML = `
+      <div class="panel">
+        <div class="panel-title">Групи / локації</div>
+        <div class="small muted" style="margin-top:6px">Окремий екран по всіх локаціях, тренерах, розкладу та кількості дітей.</div>
+      </div>
+      <div class="grid two" style="margin-top:14px">${rows}</div>
+    `;
+  },
 
+  renderActivitiesView(){
+    const monthSessions = this.sessions().filter(s => s.date.startsWith(`${YEAR}-${String(this.state.calendarMonth+1).padStart(2,'0')}`));
+    const grouped = LOCATIONS.map(loc=>{
+      const sessions = monthSessions.filter(s=>s.location===loc.name).slice(0,18);
+      return `
         <div class="panel">
-          <div class="row spread">
+          <div class="row between">
             <div>
-              <div class="panel-title">Список завдань</div>
-              <div class="muted small">Локальні задачі на день</div>
+              <div class="panel-title">${loc.name}</div>
+              <div class="small muted">${loc.trainer}</div>
             </div>
+            <div class="pill">${sessions.length} тренувань</div>
           </div>
-
-          <div class="inline-form two section-space">
-            <input id="todayTaskInput" placeholder="Нова задача..." />
-            <button class="btn-primary" id="addTodayTaskBtn">Додати задачу</button>
-          </div>
-
-          <div class="list section-space" id="todayTasksList"></div>
-        </div>
-      </div>
-    </section>
-
-    <!-- HOME -->
-    <section class="screen" id="screen-home">
-      <div class="hero">
-        <div class="hero-row">
-          <div>
-            <h1 class="hero-title">Головна</h1>
-            <div class="hero-sub">Статистика, швидкий доступ, найближчі події</div>
-            <div class="hero-badges">
-              <div class="badge red" id="homeBadgePlayers">Гравців: 0</div>
-              <div class="badge gold" id="homeBadgeUpcoming">Найближчих: 0</div>
-              <div class="badge green" id="homeBadgePaid">Оплачено: 0</div>
-            </div>
-          </div>
-          <div class="pill">ACADEMY MODE</div>
-        </div>
-      </div>
-
-      <div class="grid stats">
-        <div class="card">
-          <div class="muted small">Всього гравців</div>
-          <div class="stat-value" id="homeTotalPlayers">0</div>
-        </div>
-        <div class="card">
-          <div class="muted small">Найближчі тренування</div>
-          <div class="stat-value" id="homeUpcomingCount">0</div>
-        </div>
-        <div class="card">
-          <div class="muted small">Оплачено</div>
-          <div class="stat-value" id="homePaidCount">0</div>
-        </div>
-        <div class="card">
-          <div class="muted small">Не оплачено</div>
-          <div class="stat-value" id="homeUnpaidCount">0</div>
-        </div>
-      </div>
-
-      <div class="grid cards section-space">
-        <div class="panel">
-          <div class="panel-title">Швидкий доступ</div>
-          <div class="quick-grid section-space">
-            <button class="quick-btn" data-nav="players">Гравці</button>
-            <button class="quick-btn" data-nav="attendance">Відмітка</button>
-            <button class="quick-btn" data-nav="payments">Оплати</button>
-            <button class="quick-btn" data-nav="settings">Налаштування</button>
+          <div class="table-wrap" style="margin-top:12px">
+            <table>
+              <thead><tr><th>Дата</th><th>День</th><th>Час</th></tr></thead>
+              <tbody>
+                ${sessions.map(s=>`<tr><td>${s.date}</td><td>${s.day}</td><td>18:00</td></tr>`).join('') || '<tr><td colspan="3">Немає подій</td></tr>'}
+              </tbody>
+            </table>
           </div>
         </div>
-
-        <div class="panel">
-          <div class="panel-title">Найближчі тренування</div>
-          <div class="list section-space" id="homeUpcomingList"></div>
-        </div>
-
-        <div class="panel">
-          <div class="panel-title">Швидка аналітика</div>
-          <div class="list section-space" id="homeAnalyticsList"></div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ATTENDANCE -->
-    <section class="screen" id="screen-attendance">
-      <div class="hero">
-        <div class="hero-row">
-          <div>
-            <h1 class="hero-title">Відмітка</h1>
-            <div class="hero-sub">Відвідуваність, фільтр по даті, історія</div>
-            <div class="hero-badges">
-              <div class="badge red" id="attendanceBadgeDate">Дата: —</div>
-              <div class="badge gold" id="attendanceBadgeCount">Гравців: 0</div>
-              <div class="badge green" id="attendanceBadgeHistory">Записів: 0</div>
-            </div>
-          </div>
-          <div class="pill">ATTENDANCE</div>
-        </div>
-      </div>
-
+      `;
+    }).join('');
+    document.getElementById('view-activities').innerHTML = `
       <div class="panel">
-        <div class="inline-form three">
-          <div>
-            <div class="small muted" style="margin-bottom:6px;">Дата</div>
-            <input type="date" id="attendanceDate" />
-          </div>
-          <div>
-            <div class="small muted" style="margin-bottom:6px;">Пошук</div>
-            <input type="text" id="attendanceSearch" placeholder="Пошук по імені..." />
-          </div>
-          <div>
-            <div class="small muted" style="margin-bottom:6px;">Фільтр історії</div>
-            <input type="date" id="attendanceHistoryDate" />
-          </div>
-        </div>
+        <div class="panel-title">Активності</div>
+        <div class="small muted" style="margin-top:6px">Календар активностей і тренувань по локаціях на вибраний місяць.</div>
+      </div>
+      <div class="grid two" style="margin-top:14px">${grouped}</div>
+    `;
+  },
+
+  renderFinanceView(){
+    const f = this.financeSummary();
+    const month = `${YEAR}-${String(this.state.calendarMonth+1).padStart(2,'0')}`;
+
+    const payrollRows = TRAINERS.map(t=>{
+      const key=`${month}_${t.name}`;
+      const item=this.state.payroll[key]||{paid:false,paidDate:'',salary:t.salary};
+      const onTime = item.paidDate ? Number(String(item.paidDate).slice(8,10))<=10 : false;
+      return `<tr>
+        <td>${t.name}</td>
+        <td>${t.role||'Тренер'}</td>
+        <td>₴${Number(item.salary||t.salary||0)}</td>
+        <td>${item.paid?'<span class="pill ok">Оплачено</span>':'<span class="pill bad">Не оплачено</span>'}</td>
+        <td>${item.paidDate||'—'}</td>
+        <td>${item.paidDate ? (onTime?'<span class="pill ok">Вчасно</span>':'<span class="pill warn">Пізно</span>') : '<span class="pill">—</span>'}</td>
+      </tr>`;
+    }).join('');
+
+    const rentRows = LOCATIONS.map(loc=>{
+      const place = `${loc.name} школа`;
+      const key=`${month}_${place}`;
+      const item=this.state.locationRent[key]||{paid:false,paidDate:'',amount:1500};
+      const onTime = item.paidDate ? Number(String(item.paidDate).slice(8,10))<=10 : false;
+      return `<tr>
+        <td>${place}</td>
+        <td>₴${Number(item.amount||1500)}</td>
+        <td>${item.paid?'<span class="pill ok">Оплачено</span>':'<span class="pill bad">Не оплачено</span>'}</td>
+        <td>${item.paidDate||'—'}</td>
+        <td>${item.paidDate ? (onTime?'<span class="pill ok">Вчасно</span>':'<span class="pill warn">Пізно</span>') : '<span class="pill">—</span>'}</td>
+      </tr>`;
+    }).join('');
+
+    document.getElementById('view-finance').innerHTML = `
+      <div class="grid three">
+        <div class="panel"><div class="panel-title">Дохід з абонементів</div><div class="hero-num">₴${f.playerIncome}</div><div class="small muted">Оплачено: ${f.paidPlayers}, частково: ${f.partialPlayers}</div></div>
+        <div class="panel"><div class="panel-title">Фонд зарплат</div><div class="hero-num">₴${f.payrollTotal}</div><div class="small muted">Виплачено: ${f.payrollPaid}/${TRAINERS.length}</div></div>
+        <div class="panel"><div class="panel-title">Оренда локацій</div><div class="hero-num">₴${f.rentTotal}</div><div class="small muted">Оплачено: ${f.rentPaid}/${LOCATIONS.length}</div></div>
       </div>
 
-      <div class="grid two section-space">
-        <div class="panel">
-          <div class="panel-title">Список гравців</div>
-          <div class="list section-space" id="attendancePlayersList"></div>
-        </div>
-        <div class="panel">
-          <div class="panel-title">Історія по даті</div>
-          <div class="list section-space" id="attendanceHistoryList"></div>
-        </div>
-      </div>
-    </section>
-
-    <!-- PAYMENTS -->
-    <section class="screen" id="screen-payments">
-      <div class="hero">
-        <div class="hero-row">
-          <div>
-            <h1 class="hero-title">Оплати</h1>
-            <div class="hero-sub">Статус, сума, дата, редагування, localStorage</div>
-            <div class="hero-badges">
-              <div class="badge red" id="paymentsBadgeAll">Всього: 0</div>
-              <div class="badge gold" id="paymentsBadgePaid">Оплачено: 0</div>
-              <div class="badge green" id="paymentsBadgeDebt">Борги: 0</div>
-            </div>
-          </div>
-          <div class="pill">PAYMENTS</div>
-        </div>
-      </div>
-
-      <div class="panel">
-        <div class="inline-form four">
-          <div>
-            <div class="small muted" style="margin-bottom:6px;">Пошук</div>
-            <input type="text" id="paymentsSearch" placeholder="Пошук по імені..." />
-          </div>
-          <div>
-            <div class="small muted" style="margin-bottom:6px;">Фільтр статусу</div>
-            <select id="paymentsStatusFilter">
-              <option value="all">Всі</option>
-              <option value="paid">Оплачено</option>
-              <option value="partial">Частково</option>
-              <option value="unpaid">Не оплачено</option>
-            </select>
-          </div>
-          <div>
-            <div class="small muted" style="margin-bottom:6px;">Швидка сума</div>
-            <input type="number" id="paymentsQuickAmount" placeholder="1400" />
-          </div>
-          <div>
-            <div class="small muted" style="margin-bottom:6px;">Швидка дата</div>
-            <input type="date" id="paymentsQuickDate" />
-          </div>
-        </div>
-      </div>
-
-      <div class="panel section-space">
-        <div class="table-wrap">
+      <div class="panel" style="margin-top:14px">
+        <div class="panel-title">Зарплати тренерам / адміністратору</div>
+        <div class="table-wrap" style="margin-top:12px">
           <table>
-            <thead>
-              <tr>
-                <th>Гравець</th>
-                <th>Вік</th>
-                <th>Позиція</th>
-                <th>Статус</th>
-                <th>Сума</th>
-                <th>Дата</th>
-                <th>Дії</th>
-              </tr>
-            </thead>
-            <tbody id="paymentsTableBody"></tbody>
+            <thead><tr><th>Людина</th><th>Роль</th><th>Сума</th><th>Статус</th><th>Дата</th><th>1–10</th></tr></thead>
+            <tbody>${payrollRows}</tbody>
           </table>
         </div>
       </div>
-    </section>
 
-    <!-- TACTICS -->
-    <section class="screen" id="screen-tactics">
-      <div class="hero">
-        <div class="hero-row">
-          <div>
-            <h1 class="hero-title">Тактика</h1>
-            <div class="hero-sub">Футбольне поле, drag & drop, схеми, localStorage</div>
-            <div class="hero-badges">
-              <div class="badge red" id="tacticsBadgeFormation">Схема: 4-3-3</div>
-              <div class="badge gold" id="tacticsBadgeSaved">Збережено</div>
-              <div class="badge green">Touch + Mouse</div>
-            </div>
-          </div>
-          <div class="pill">TACTICAL BOARD</div>
+      <div class="panel" style="margin-top:14px">
+        <div class="panel-title">Оренда локацій / шкіл</div>
+        <div class="table-wrap" style="margin-top:12px">
+          <table>
+            <thead><tr><th>Локація</th><th>Сума</th><th>Статус</th><th>Дата</th><th>1–10</th></tr></thead>
+            <tbody>${rentRows}</tbody>
+          </table>
         </div>
       </div>
+    `;
+  },
 
-      <div class="card pitch-card">
-        <div class="tactics-toolbar">
-          <div class="stack">
-            <div class="inline-form three">
-              <input id="tacticsBoardName" placeholder="Назва розстановки" />
-              <select id="formationSelect">
-                <option value="4-3-3">4-3-3</option>
-                <option value="4-4-2">4-4-2</option>
-                <option value="3-5-2">3-5-2</option>
-              </select>
-              <button class="btn-primary" id="applyFormationBtn">Застосувати схему</button>
-            </div>
-            <div class="row">
-              <button class="btn btn-sm" id="saveTacticsBtn">Зберегти розстановку</button>
-              <button class="btn btn-sm" id="resetTacticsBtn">Скинути позиції</button>
-              <button class="btn btn-sm" id="clearLinesBtn">Очистити лінії</button>
-            </div>
-            <div class="inline-form two">
-              <select id="lineFromSelect"></select>
-              <select id="lineToSelect"></select>
-            </div>
-            <div class="row">
-              <button class="btn-blue btn-sm" id="addLineBtn">Додати лінію</button>
-            </div>
-          </div>
-        </div>
-
-        <div class="pitch-wrap" id="pitch">
-          <div class="pitch-line pitch-half"></div>
-          <div class="pitch-circle"></div>
-          <div class="pitch-box-top"></div>
-          <div class="pitch-box-bottom"></div>
-          <svg class="svg-lines" id="tacticsSvg"></svg>
-          <div id="markersLayer"></div>
-        </div>
-      </div>
-
-      <div class="grid two section-space">
+  renderHero(){
+    const pay = this.paymentStats();
+    const att = this.attendanceStats();
+    const today = this.todaySessions();
+    document.getElementById('hero').innerHTML = `
+      <div class="grid three" style="margin-bottom:14px">
         <div class="panel">
-          <div class="panel-title">Збережені розстановки</div>
-          <div class="list section-space" id="savedBoardsList"></div>
+          <div class="panel-title">Сьогодні</div>
+          <div class="hero-num">${today.length}</div>
+          <div class="small muted">Тренувань сьогодні</div>
         </div>
         <div class="panel">
-          <div class="panel-title">Редагування підписів</div>
-          <div class="list section-space" id="markerEditorsList"></div>
+          <div class="panel-title">Гравці</div>
+          <div class="hero-num">${this.state.players.length}</div>
+          <div class="small muted">Всього у системі</div>
+        </div>
+        <div class="panel">
+          <div class="panel-title">Оплати</div>
+          <div class="hero-num">₴${pay.income}</div>
+          <div class="small muted">Поточний дохід</div>
         </div>
       </div>
-    </section>
+    `;
+  },
 
-    <!-- PLAYERS -->
-    <section class="screen" id="screen-players">
-      <div class="hero">
-        <div class="hero-row">
-          <div>
-            <h1 class="hero-title">Гравці</h1>
-            <div class="hero-sub">Додавання, пошук, редагування, видалення</div>
-            <div class="hero-badges">
-              <div class="badge red" id="playersBadgeTotal">Всього: 0</div>
-              <div class="badge gold" id="playersBadgeFiltered">Показано: 0</div>
-              <div class="badge green">localStorage</div>
-            </div>
+  renderDashboard(){
+    const pay = this.paymentStats();
+    const att = this.attendanceStats();
+    const groups = LOCATIONS.map(l=>`
+      <div class="card">
+        <div class="row" style="justify-content:space-between">
+          <div><strong>${l.name}</strong><div class="small muted">${l.trainer}</div></div>
+          <span class="pill">${this.locationCount(l.name)} дітей</span>
+        </div>
+        <div class="small muted" style="margin-top:8px">${(l.days||[]).join(' / ')} • ₴${l.price}</div>
+      </div>
+    `).join('');
+    document.getElementById('view-dashboard').innerHTML = `
+      <div class="grid three">
+        <div class="panel"><div class="panel-title">Оплачено</div><div class="hero-num">${pay.paid}</div><div class="small muted">Повних оплат</div></div>
+        <div class="panel"><div class="panel-title">Частково</div><div class="hero-num">${pay.partial}</div><div class="small muted">Часткових оплат</div></div>
+        <div class="panel"><div class="panel-title">Боржники</div><div class="hero-num">${pay.unpaid}</div><div class="small muted">Не оплачено</div></div>
+      </div>
+      <div class="panel" style="margin-top:14px">
+        <div class="panel-title">Локації</div>
+        <div class="grid three" style="margin-top:12px">${groups}</div>
+      </div>
+      <div class="grid three" style="margin-top:14px">
+        <div class="panel"><div class="panel-title">Відмітка</div><div class="hero-num">${att.present}</div><div class="small muted">Був</div></div>
+        <div class="panel"><div class="panel-title">Запізнився</div><div class="hero-num">${att.late}</div><div class="small muted">Запізнення</div></div>
+        <div class="panel"><div class="panel-title">Не був</div><div class="hero-num">${att.absent}</div><div class="small muted">Пропуски</div></div>
+      </div>
+    `;
+  },
+
+  renderLocations(){
+    const list = this.filteredPlayers();
+    const filters = `
+      <div class="panel" style="margin-bottom:14px">
+        <div class="row" style="align-items:end">
+          <div class="field" style="min-width:240px;flex:1">
+            <label>Пошук</label>
+            <input value="${this.esc(this.state.q)}" oninput="app.setQuery(this.value)" placeholder="Ім’я / номер" />
           </div>
-          <div class="pill">PLAYERS</div>
-        </div>
-      </div>
-
-      <div class="panel">
-        <div class="panel-title">Додати нового гравця</div>
-        <div class="inline-form two section-space">
-          <input id="playerName" placeholder="Ім’я та прізвище" />
-          <input id="playerAge" type="number" min="4" max="60" placeholder="Вік" />
-          <input id="playerPosition" placeholder="Позиція (напр. CM / GK / ST)" />
-          <input id="playerNumber" type="number" min="1" max="99" placeholder="Номер" />
-        </div>
-        <div class="section-space">
-          <textarea id="playerNote" placeholder="Примітка"></textarea>
-        </div>
-        <div class="row section-space">
-          <button class="btn-primary" id="addPlayerBtn">Додати гравця</button>
-          <button class="btn" id="clearPlayerFormBtn">Очистити форму</button>
-        </div>
-      </div>
-
-      <div class="panel section-space">
-        <div class="inline-form two">
-          <input id="playersSearch" placeholder="Пошук гравця..." />
-          <select id="playersSort">
-            <option value="name">Сортування: Ім’я</option>
-            <option value="age">Сортування: Вік</option>
-            <option value="number">Сортування: Номер</option>
-          </select>
-        </div>
-      </div>
-
-      <div class="list section-space" id="playersList"></div>
-    </section>
-
-    <!-- CALENDAR -->
-    <section class="screen" id="screen-calendar">
-      <div class="hero">
-        <div class="hero-row">
-          <div>
-            <h1 class="hero-title">Календар</h1>
-            <div class="hero-sub">12 місяців, тренування, автогенерація, шаблони</div>
-            <div class="hero-badges">
-              <div class="badge red" id="calendarBadgeMonth">—</div>
-              <div class="badge gold" id="calendarBadgeEvents">Подій: 0</div>
-              <div class="badge green">12 місяців</div>
-            </div>
+          <div class="field" style="min-width:220px">
+            <label>Локація</label>
+            <select onchange="app.setLocationFilter(this.value)">
+              <option ${this.state.locationFilter==='Усі'?'selected':''}>Усі</option>
+              ${LOCATIONS.map(l=>`<option ${this.state.locationFilter===l.name?'selected':''}>${l.name}</option>`).join('')}
+            </select>
           </div>
-          <div class="pill">CALENDAR</div>
         </div>
       </div>
-
+    `;
+    const rows = list.map(p=>`
+      <div class="card player">
+        <div>
+          <strong>${this.esc(p.name)}</strong>
+          <div class="small muted">${p.location} • ${p.group}</div>
+        </div>
+        <div class="small">Оплата: <strong>${p.payment}</strong></div>
+        <div class="small">Борг / абонемент: <strong>₴${p.debt}</strong></div>
+        <div class="row">
+          <button onclick="app.openPlayer('${p.id}')">Картка</button>
+        </div>
+      </div>
+    `).join('');
+    document.getElementById('view-locations').innerHTML = filters + `
       <div class="panel">
-        <div class="row spread">
+        <div class="panel-title">Список гравців</div>
+        <div class="small muted" style="margin-top:6px">Усього: ${list.length}</div>
+        <div class="stack" style="margin-top:12px">${rows}</div>
+      </div>
+    `;
+  },
+
+  renderToday(){
+    const sessions = this.todaySessions();
+    document.getElementById('view-today').innerHTML = `
+      <div class="panel">
+        <div class="panel-title">Сьогоднішні тренування</div>
+        <div class="stack" style="margin-top:12px">
+          ${sessions.length ? sessions.map(s=>`
+            <div class="card">
+              <strong>${s.location}</strong>
+              <div class="small muted">${s.trainer} • ${s.day} • ${s.date}</div>
+            </div>
+          `).join('') : '<div class="small muted">Сьогодні подій немає</div>'}
+        </div>
+      </div>
+    `;
+  },
+
+  renderAttendance(){
+    const today = `${YEAR}-${String(this.state.calendarMonth+1).padStart(2,'0')}-01`;
+    const rows = this.state.players.map(p=>`
+      <tr>
+        <td>${this.esc(p.name)}</td>
+        <td>${p.location}</td>
+        <td>${p.group}</td>
+        <td>
           <div class="row">
-            <button class="btn btn-sm" id="prevMonthBtn">←</button>
-            <button class="btn btn-sm" id="todayMonthBtn">Сьогодні</button>
-            <button class="btn btn-sm" id="nextMonthBtn">→</button>
+            <button class="${p.attendance[today]==='Був'?'primary':''}" onclick="app.markAttendance('${p.id}','${today}','Був')">Був</button>
+            <button class="${p.attendance[today]==='Запізнився'?'amber':''}" onclick="app.markAttendance('${p.id}','${today}','Запізнився')">Запізнився</button>
+            <button class="${p.attendance[today]==='Не був'?'green ghost':''}" onclick="app.markAttendance('${p.id}','${today}','Не був')">Не був</button>
           </div>
-          <div class="strong" id="calendarMonthTitle">—</div>
+        </td>
+      </tr>
+    `).join('');
+    document.getElementById('view-attendance').innerHTML = `
+      <div class="panel">
+        <div class="panel-title">Відвідуваність</div>
+        <div class="small muted" style="margin-top:6px">Дата відмітки: ${today}</div>
+        <div class="table-wrap" style="margin-top:12px">
+          <table>
+            <thead><tr><th>Гравець</th><th>Локація</th><th>Група</th><th>Статус</th></tr></thead>
+            <tbody>${rows}</tbody>
+          </table>
         </div>
-
-        <div class="calendar-head section-space">
-          <div class="small strong" style="text-align:center;color:#fca5a5;">Нд</div>
-          <div class="small strong" style="text-align:center;color:#fca5a5;">Пн</div>
-          <div class="small strong" style="text-align:center;color:#fca5a5;">Вт</div>
-          <div class="small strong" style="text-align:center;color:#fca5a5;">Ср</div>
-          <div class="small strong" style="text-align:center;color:#fca5a5;">Чт</div>
-          <div class="small strong" style="text-align:center;color:#fca5a5;">Пт</div>
-          <div class="small strong" style="text-align:center;color:#fca5a5;">Сб</div>
-        </div>
-        <div class="calendar-grid section-space" id="calendarGrid"></div>
       </div>
+    `;
+  },
 
-      <div class="grid two section-space">
+  markAttendance(id,date,status){
+    const p = this.state.players.find(x=>x.id===id);
+    if(!p) return;
+    p.attendance ||= {};
+    p.attendance[date] = status;
+    this.save();
+    this.renderAttendance();
+    this.renderHero();
+    this.renderDashboard();
+  },
+
+  renderPayments(){
+    const rows = this.state.players.map(p=>`
+      <tr>
+        <td>${this.esc(p.name)}</td>
+        <td>${p.location}</td>
+        <td>₴${p.debt}</td>
+        <td>${p.payment}</td>
+        <td>
+          <div class="row">
+            <button class="${p.payment==='Оплачено'?'primary':''}" onclick="app.setPayment('${p.id}','Оплачено')">Оплачено</button>
+            <button class="${p.payment==='Частково'?'amber':''}" onclick="app.setPayment('${p.id}','Частково')">Частково</button>
+            <button class="${p.payment==='Не оплачено'?'ghost':''}" onclick="app.setPayment('${p.id}','Не оплачено')">Не оплачено</button>
+          </div>
+        </td>
+      </tr>
+    `).join('');
+    document.getElementById('view-payments').innerHTML = `
+      <div class="panel">
+        <div class="panel-title">Оплати</div>
+        <div class="table-wrap" style="margin-top:12px">
+          <table>
+            <thead><tr><th>Гравець</th><th>Локація</th><th>Абонемент</th><th>Статус</th><th>Керування</th></tr></thead>
+            <tbody>${rows}</tbody>
+          </table>
+        </div>
+      </div>
+    `;
+  },
+
+  setPayment(id,status){
+    const p = this.state.players.find(x=>x.id===id);
+    if(!p) return;
+    p.payment = status;
+    this.save();
+    this.renderPayments();
+    this.renderDebtors();
+    this.renderHero();
+    this.renderDashboard();
+  },
+
+  renderDebtors(){
+    const rows = this.state.players.filter(p=>p.payment!=='Оплачено').map(p=>`
+      <div class="card">
+        <strong>${this.esc(p.name)}</strong>
+        <div class="small muted">${p.location} • ${p.group}</div>
+        <div class="small" style="margin-top:8px">Статус: <strong>${p.payment}</strong> • Сума: <strong>₴${p.debt}</strong></div>
+      </div>
+    `).join('');
+    document.getElementById('view-debtors').innerHTML = `
+      <div class="panel">
+        <div class="panel-title">Боржники</div>
+        <div class="stack" style="margin-top:12px">${rows || '<div class="small muted">Боржників немає</div>'}</div>
+      </div>
+    `;
+  },
+
+  payrollKey(name){ return `${YEAR}-${String(this.state.calendarMonth+1).padStart(2,'0')}_${name}`; },
+  togglePayrollPaid(name){
+    const key=this.payrollKey(name);
+    const cur=this.state.payroll[key]||{paid:false,paidDate:'',salary:0};
+    this.state.payroll[key]={...cur, paid:!cur.paid, paidDate:!cur.paid ? `${YEAR}-${String(this.state.calendarMonth+1).padStart(2,'0')}-05` : ''};
+    this.save(); this.renderTrainers();
+  },
+  setPayrollDate(name,val){
+    const key=this.payrollKey(name);
+    const cur=this.state.payroll[key]||{paid:false,paidDate:'',salary:0};
+    this.state.payroll[key]={...cur, paidDate:val, paid:!!val};
+    this.save(); this.renderTrainers();
+  },
+  setPayrollAmount(name,val){
+    const key=this.payrollKey(name);
+    const cur=this.state.payroll[key]||{paid:false,paidDate:'',salary:0};
+    this.state.payroll[key]={...cur, salary:Number(val)||0};
+    this.save(); this.renderTrainers();
+  },
+
+  rentKey(name){ return `${YEAR}-${String(this.state.calendarMonth+1).padStart(2,'0')}_${name}`; },
+  getRentDefault(name){
+    const cur = this.state.locationRent[this.rentKey(name)];
+    return cur?.amount || 1500;
+  },
+  toggleRentPaid(name){
+    const key=this.rentKey(name);
+    const cur=this.state.locationRent[key]||{paid:false,paidDate:'',amount:1500};
+    this.state.locationRent[key]={...cur, paid:!cur.paid, paidDate:!cur.paid ? `${YEAR}-${String(this.state.calendarMonth+1).padStart(2,'0')}-05` : ''};
+    this.save(); this.renderAdmin();
+  },
+  setRentDate(name,val){
+    const key=this.rentKey(name);
+    const cur=this.state.locationRent[key]||{paid:false,paidDate:'',amount:1500};
+    this.state.locationRent[key]={...cur, paidDate:val, paid:!!val, amount:cur.amount||1500};
+    this.save(); this.renderAdmin();
+  },
+  setRentAmount(name,val){
+    const key=this.rentKey(name);
+    const cur=this.state.locationRent[key]||{paid:false,paidDate:'',amount:1500};
+    this.state.locationRent[key]={...cur, amount:Number(val)||0};
+    this.save(); this.renderAdmin();
+  },
+  renderTrainers(){ 
+    const monthLabel = `${MONTHS[this.state.monthFilter]} ${YEAR}`;
+    const trainerCards = TRAINERS.map(t=>{
+      const key = this.payrollKey(t.name);
+      const item = this.state.payroll[key] || { paid:false, paidDate:'', salary:t.salary };
+      const onTime = item.paidDate ? Number(String(item.paidDate).slice(8,10)) <= 10 : false;
+      const assigned = LOCATIONS.filter(l=>l.trainer===t.name).map(l=>l.name);
+      return `
         <div class="panel">
-          <div class="panel-title">Додати тренування на день</div>
-          <div class="inline-form two section-space">
-            <input type="date" id="eventDate" />
-            <input type="time" id="eventTime" />
-            <input id="eventType" placeholder="Тип тренування (ігрове / техніка / матч)" />
-            <input id="eventTitle" placeholder="Назва (напр. Вечірнє тренування)" />
+          <div class="row" style="justify-content:space-between;align-items:flex-start">
+            <div>
+              <div class="panel-title">${t.name}</div>
+              <div class="small muted">${t.role}</div>
+            </div>
+            <span class="pill ${item.paid?'ok':'bad'}">${item.paid?'Оплачено':'Не оплачено'}</span>
           </div>
-          <div class="row section-space">
-            <button class="btn-primary" id="addEventBtn">Додати тренування</button>
+          <div class="row" style="margin-top:10px;flex-wrap:wrap">
+            ${assigned.length ? assigned.map(a=>`<span class="coach-chip">${a}</span>`).join('') : '<span class="small muted">Поки без локації</span>'}
           </div>
-        </div>
-
-        <div class="panel">
-          <div class="panel-title">Автогенерація тренувань</div>
-          <div class="hint section-space">Обери дні тижня, час, тип і період. Система створить тренування на майбутні тижні.</div>
-
-          <div class="section-space">
-            <div class="small muted" style="margin-bottom:8px;">Дні тижня</div>
-            <div class="chip-row" id="weekdayChips"></div>
-          </div>
-
-          <div class="inline-form two section-space">
-            <input type="time" id="templateTime" />
-            <input id="templateType" placeholder="Тип тренування" />
-            <input type="number" id="templateWeeks" min="1" max="52" value="12" placeholder="Кількість тижнів" />
-            <input type="date" id="templateStartDate" />
-          </div>
-
-          <div class="row section-space">
-            <button class="btn-primary" id="generateTemplateBtn">Згенерувати</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="panel section-space">
-        <div class="panel-title">Події вибраного місяця</div>
-        <div class="list section-space" id="calendarEventsList"></div>
-      </div>
-    </section>
-
-    <!-- SETTINGS -->
-    <section class="screen" id="screen-settings">
-      <div class="hero">
-        <div class="hero-row">
-          <div>
-            <h1 class="hero-title">Налаштування</h1>
-            <div class="hero-sub">Експорт / імпорт / очищення / скидання</div>
-            <div class="hero-badges">
-              <div class="badge red">JSON Export</div>
-              <div class="badge gold">JSON Import</div>
-              <div class="badge green">Reset Data</div>
+          <div class="grid two" style="margin-top:12px">
+            <div class="field">
+              <label>Зарплата</label>
+              <input type="number" value="${Number(item.salary||t.salary||0)}" onchange="app.setPayrollAmount('${t.name}', this.value)" />
+            </div>
+            <div class="field">
+              <label>Дата виплати</label>
+              <input type="date" value="${item.paidDate||''}" onchange="app.setPayrollDate('${t.name}', this.value)" />
             </div>
           </div>
-          <div class="pill">SETTINGS</div>
+          <div class="row" style="margin-top:12px;justify-content:space-between;align-items:center">
+            <div class="small muted">${item.paidDate ? (onTime ? 'Виплачено вчасно (1–10 число)' : 'Виплачено із запізненням') : 'Ще не виплачено'}</div>
+            <button class="${item.paid?'ghost':'primary'}" onclick="app.togglePayrollPaid('${t.name}')">${item.paid?'Скасувати оплату':'Позначити як виплачено'}</button>
+          </div>
+          <div class="small muted" style="margin-top:10px">Місяць: ${monthLabel}</div>
+        </div>
+      `;
+    }).join('');
+
+    document.getElementById('view-trainers').innerHTML = `
+      <div class="panel">
+        <div class="panel-title">Тренери та адміністратор</div>
+        <div class="small muted" style="margin-top:6px">Контроль виплат зарплат, ролей та закріплених локацій</div>
+      </div>
+      <div class="grid two" style="margin-top:14px">${trainerCards}</div>
+    `;
+  },
+
+  renderCalendarMonth(){
+    const month = this.state.monthFilter;
+    const year = YEAR;
+    const first = new Date(year, month, 1);
+    const last = new Date(year, month+1, 0).getDate();
+    const start = first.getDay();
+    let html = `<div class="calendar">${WEEKDAYS.map(w=>`<div class="small muted" style="text-align:center">${w}</div>`).join('')}`;
+    for(let i=0;i<start;i++) html += `<div class="day" style="opacity:.3"></div>`;
+    for(let d=1; d<=last; d++){
+      const date = `${year}-${String(month+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+      const items = this.sessions().filter(s=>s.date===date);
+      html += `<div class="day"><div class="date">${d}</div>${items.map(i=>`<div class="session">${i.location} • ${i.trainer}</div>`).join('')}</div>`;
+    }
+    html += `</div>`;
+    return html;
+  },
+
+  defaultMarkers(f){
+    const map = {
+      '4-3-3': [
+        {id:'m1',x:50,y:90,l:'1',c:'gold'},
+        {id:'m2',x:18,y:72,l:'2',c:'red'},{id:'m3',x:38,y:74,l:'3',c:'red'},{id:'m4',x:62,y:74,l:'4',c:'red'},{id:'m5',x:82,y:72,l:'5',c:'red'},
+        {id:'m6',x:28,y:52,l:'6',c:'red'},{id:'m7',x:50,y:48,l:'8',c:'red'},{id:'m8',x:72,y:52,l:'10',c:'red'},
+        {id:'m9',x:20,y:24,l:'11',c:'red'},{id:'m10',x:50,y:18,l:'9',c:'red'},{id:'m11',x:80,y:24,l:'7',c:'red'}
+      ],
+      '4-4-2': [
+        {id:'m1',x:50,y:90,l:'1',c:'gold'},
+        {id:'m2',x:18,y:72,l:'2',c:'red'},{id:'m3',x:38,y:74,l:'3',c:'red'},{id:'m4',x:62,y:74,l:'4',c:'red'},{id:'m5',x:82,y:72,l:'5',c:'red'},
+        {id:'m6',x:18,y:48,l:'11',c:'red'},{id:'m7',x:38,y:46,l:'6',c:'red'},{id:'m8',x:62,y:46,l:'8',c:'red'},{id:'m9',x:82,y:48,l:'7',c:'red'},
+        {id:'m10',x:38,y:20,l:'10',c:'red'},{id:'m11',x:62,y:20,l:'9',c:'red'}
+      ],
+      '3-5-2': [
+        {id:'m1',x:50,y:90,l:'1',c:'gold'},
+        {id:'m2',x:25,y:72,l:'3',c:'red'},{id:'m3',x:50,y:74,l:'4',c:'red'},{id:'m4',x:75,y:72,l:'5',c:'red'},
+        {id:'m5',x:12,y:48,l:'2',c:'red'},{id:'m6',x:32,y:46,l:'6',c:'red'},{id:'m7',x:50,y:44,l:'8',c:'red'},{id:'m8',x:68,y:46,l:'10',c:'red'},{id:'m9',x:88,y:48,l:'7',c:'red'},
+        {id:'m10',x:38,y:20,l:'11',c:'red'},{id:'m11',x:62,y:20,l:'9',c:'red'}
+      ]
+    };
+    return JSON.parse(JSON.stringify(map[f] || map['4-3-3']));
+  },
+
+  setFormation(f){
+    this.state.tacticsFormation = f;
+    this.state.markers = this.defaultMarkers(f);
+    this.save();
+    this.renderTactics();
+  },
+
+  renderTactics(){
+    document.getElementById('view-tactics').innerHTML = `
+      <div class="panel">
+        <div class="row" style="justify-content:space-between;align-items:center">
+          <div>
+            <div class="panel-title">Тактична дошка</div>
+            <div class="small muted">Touch drag & drop працює на телефоні та комп’ютері</div>
+          </div>
+          <div class="row">
+            <button class="${this.state.tacticsFormation==='4-3-3'?'primary':''}" onclick="app.setFormation('4-3-3')">4-3-3</button>
+            <button class="${this.state.tacticsFormation==='4-4-2'?'primary':''}" onclick="app.setFormation('4-4-2')">4-4-2</button>
+            <button class="${this.state.tacticsFormation==='3-5-2'?'primary':''}" onclick="app.setFormation('3-5-2')">3-5-2</button>
+            <button onclick="app.resetBoard()">Скинути</button>
+          </div>
+        </div>
+        <div class="board" id="board" style="margin-top:14px">
+          <div class="line outline"></div><div class="line mid"></div><div class="line circle"></div>
+          <div class="box-top"></div><div class="box-bot"></div>
         </div>
       </div>
+    `;
+    this.drawMarkers();
+  },
 
-      <div class="grid cards">
+  drawMarkers(){
+    const board = document.getElementById('board');
+    if(!board) return;
+    board.querySelectorAll('.marker').forEach(m=>m.remove());
+
+    this.state.markers.forEach(m=>{
+      const el = document.createElement('div');
+      el.className = `marker ${m.c}`;
+      el.style.left = m.x + '%';
+      el.style.top = m.y + '%';
+      el.dataset.id = m.id;
+      el.innerHTML = `<span>${m.l}</span>`;
+      let active = false;
+      const move = (clientX, clientY)=>{
+        const rect = board.getBoundingClientRect();
+        const x = Math.max(6, Math.min(94, ((clientX - rect.left) / rect.width) * 100));
+        const y = Math.max(6, Math.min(94, ((clientY - rect.top) / rect.height) * 100));
+        m.x = x; m.y = y;
+        el.style.left = x+'%'; el.style.top = y+'%';
+      };
+      el.addEventListener('pointerdown', ev=>{
+        active = true;
+        el.setPointerCapture(ev.pointerId);
+      });
+      el.addEventListener('pointermove', ev=>{
+        if(!active) return;
+        move(ev.clientX, ev.clientY);
+      });
+      el.addEventListener('pointerup', ()=>{
+        active = false;
+        this.save();
+      });
+      el.addEventListener('pointercancel', ()=>{
+        active = false;
+        this.save();
+      });
+      board.appendChild(el);
+    });
+  },
+
+  resetBoard(){
+    this.state.markers = this.defaultMarkers(this.state.tacticsFormation);
+    this.save();
+    this.renderTactics();
+  },
+
+  addPlayer(){
+    const name = String(this.state.adminName || '').trim();
+    if(!name) return alert('Введи ПІБ');
+    const loc = LOCATIONS.find(l=>l.name===this.state.adminLocation) || LOCATIONS[0];
+    this.state.players.unshift({
+      id:'p'+Date.now(),
+      name,
+      location:this.state.adminLocation,
+      group:this.state.adminGroup,
+      dob:'',
+      age:'',
+      payment:'Не оплачено',
+      debt:loc.price,
+      notes:`Телефон: ${this.state.adminPhone || ''}`,
+      attendance:{},
+      number:this.state.players.length+1
+    });
+    this.state.adminName='';
+    this.state.adminPhone='';
+    this.save();
+    this.render();
+    this.setTab('locations');
+  },
+
+  renderAdmin(){
+    const monthLabel = `${MONTHS[this.state.calendarMonth]} ${YEAR}`;
+    const rentRows = LOCATIONS.map(loc=>{
+      const isSchool = true;
+      const placeLabel = `${loc.name} школа`;
+      const key = this.rentKey(placeLabel);
+      const rent = this.state.locationRent[key] || { paid:false, paidDate:'', amount:1500 };
+      const paidInTime = rent.paidDate ? Number(String(rent.paidDate).slice(8,10)) <= 10 : false;
+      return `<tr>
+        <td>${placeLabel}</td>
+        <td>${loc.trainer}</td>
+        <td><input type="number" value="${Number(rent.amount||1500)}" onchange="app.setRentAmount('${placeLabel}', this.value)" style="width:120px" /></td>
+        <td>${rent.paid ? '<span class="pill ok">Оплачено</span>' : '<span class="pill bad">Не оплачено</span>'}</td>
+        <td><input type="date" value="${rent.paidDate||''}" onchange="app.setRentDate('${placeLabel}', this.value)" /></td>
+        <td>${rent.paidDate ? (paidInTime ? '<span class="pill ok">Вчасно</span>' : '<span class="pill warn">Пізно</span>') : '<span class="pill">—</span>'}</td>
+        <td><button class="${rent.paid?'ghost':'primary'}" onclick="app.toggleRentPaid('${placeLabel}')">${rent.paid?'Скасувати':'Позначити оплату'}</button></td>
+      </tr>`;
+    }).join('');
+    const paidCount = LOCATIONS.map(loc=>`${loc.name} школа`).filter(name => (this.state.locationRent[this.rentKey(name)]||{}).paid).length;
+    const totalRent = LOCATIONS.map(loc=>`${loc.name} школа`).reduce((s,name)=>s + Number((this.state.locationRent[this.rentKey(name)]||{amount:1500}).amount||0), 0);
+    document.getElementById('view-admin').innerHTML=`
+      <div class="grid three">
+        <div class="panel">
+          <div class="panel-title">Додати гравця</div>
+          <div class="grid" style="grid-template-columns:1fr; margin-top:12px">
+            <input placeholder="ПІБ" value="${this.esc(this.state.adminName)}" oninput="app.state.adminName=this.value" />
+            <input placeholder="Телефон" value="${this.esc(this.state.adminPhone)}" oninput="app.state.adminPhone=this.value" />
+            <select onchange="app.state.adminLocation=this.value">${LOCATIONS.map(l=>`<option ${this.state.adminLocation===l.name?'selected':''}>${l.name}</option>`).join('')}</select>
+            <select onchange="app.state.adminGroup=this.value"><option ${this.state.adminGroup==='Молодша'?'selected':''}>Молодша</option><option ${this.state.adminGroup==='Старша'?'selected':''}>Старша</option></select>
+            <button class="primary" onclick="app.addPlayer()">Додати</button>
+          </div>
+        </div>
+        <div class="panel">
+          <div class="panel-title">Швидкі дії</div>
+          <div class="row" style="margin-top:12px">
+            <button onclick="app.setTab('payments')">Оплати</button>
+            <button onclick="app.setTab('attendance')">Відвідування</button>
+            <button onclick="app.setTab('tactics')">Тактика</button>
+          </div>
+          <div class="panel-title" style="margin-top:16px">Оренда локацій</div>
+          <div class="small muted" style="margin-top:6px">${monthLabel}</div>
+          <div class="row" style="margin-top:10px">
+            <div class="pill ok">Оплачено: ${paidCount}/${LOCATIONS.length}</div>
+            <div class="pill">План: ₴${totalRent}</div>
+          </div>
+        </div>
         <div class="panel">
           <div class="panel-title">Дані</div>
-          <div class="list section-space">
-            <button class="btn-primary" id="exportJsonBtn">Експорт JSON</button>
-            <button class="btn" id="importJsonBtn">Імпорт JSON</button>
-            <button class="btn btn-red" id="clearStorageBtn">Очистити localStorage</button>
-            <button class="btn btn-red" id="resetAppBtn">Скинути все до бази</button>
-          </div>
-        </div>
-
-        <div class="panel">
-          <div class="panel-title">Інфо</div>
-          <div class="list section-space">
-            <div class="card">
-              <div class="small muted">Гравців у базі</div>
-              <div class="stat-value" id="settingsPlayersCount">0</div>
-            </div>
-            <div class="card">
-              <div class="small muted">Тренувань у календарі</div>
-              <div class="stat-value" id="settingsEventsCount">0</div>
-            </div>
-            <div class="card">
-              <div class="small muted">Записів відвідуваності</div>
-              <div class="stat-value" id="settingsAttendanceCount">0</div>
-            </div>
-          </div>
-        </div>
-
-        <div class="panel">
-          <div class="panel-title">Сервіс</div>
-          <div class="hint section-space">
-            Весь застосунок працює в одному файлі index.html, без бібліотек, з повним localStorage, з реальною навігацією, drag & drop та календарем.
+          <div class="row" style="margin-top:12px">
+            <button onclick="app.exportJson()">Експорт JSON</button>
+            <button onclick="app.exportCsv()">Експорт CSV</button>
           </div>
         </div>
       </div>
-    </section>
-  </div>
+      <div class="panel" style="margin-top:14px">
+        <div class="panel-title">Контроль оплат локацій / шкіл</div>
+        <div class="small muted" style="margin-top:6px">Зараз за замовчуванням 1500 грн на місяць для кожної локації. Суму можна змінити вручну.</div>
+        <div class="table-wrap" style="margin-top:12px">
+          <table>
+            <thead>
+              <tr>
+                <th>Локація</th>
+                <th>Відповідальний тренер</th>
+                <th>Сума оренди</th>
+                <th>Статус</th>
+                <th>Дата оплати</th>
+                <th>1–10 число</th>
+                <th>Дія</th>
+              </tr>
+            </thead>
+            <tbody>${rentRows}</tbody>
+          </table>
+        </div>
+      </div>
+    `;
+  },
 
-  <nav class="nav">
-    <div class="nav-grid">
-      <button class="nav-btn active" data-screen="today">
-        <div class="icon">☀️</div>
-        <span>Сьогодні</span>
-      </button>
-      <button class="nav-btn" data-screen="home">
-        <div class="icon">🏠</div>
-        <span>Головна</span>
-      </button>
-      <button class="nav-btn" data-screen="attendance">
-        <div class="icon">✅</div>
-        <span>Відмітка</span>
-      </button>
-      <button class="nav-btn" data-screen="payments">
-        <div class="icon">💳</div>
-        <span>Оплати</span>
-      </button>
-      <button class="nav-btn" data-screen="tactics">
-        <div class="icon">⚽</div>
-        <span>Тактика</span>
-      </button>
-      <button class="nav-btn" data-screen="players">
-        <div class="icon">👥</div>
-        <span>Гравці</span>
-      </button>
-      <button class="nav-btn" data-screen="calendar">
-        <div class="icon">📅</div>
-        <span>Календар</span>
-      </button>
-      <button class="nav-btn" data-screen="settings">
-        <div class="icon">⚙️</div>
-        <span>Налаштування</span>
-      </button>
+  renderExport(){
+    document.getElementById('view-export').innerHTML = `
+      <div class="panel">
+        <div class="panel-title">Експорт / Імпорт</div>
+        <div class="row" style="margin-top:12px">
+          <button onclick="app.exportJson()">Експорт JSON</button>
+          <button onclick="app.exportCsv()">Експорт CSV</button>
+          <button onclick="document.getElementById('importFile').click()">Імпорт JSON</button>
+          <button onclick="app.resetAll()">Скинути все</button>
+        </div>
+      </div>
+    `;
+  },
+
+  openPlayer(id){
+    const p = this.state.players.find(x=>x.id===id);
+    if(!p) return;
+    document.getElementById('sheetTitle').textContent = p.name;
+    document.getElementById('sheetBody').innerHTML = `
+      <div class="grid two">
+        <div class="field"><label>Ім’я</label><input id="sp_name" value="${this.esc(p.name)}"></div>
+        <div class="field"><label>Локація</label>
+          <select id="sp_loc">${LOCATIONS.map(l=>`<option ${p.location===l.name?'selected':''}>${l.name}</option>`).join('')}</select>
+        </div>
+        <div class="field"><label>Група</label>
+          <select id="sp_group"><option ${p.group==='Молодша'?'selected':''}>Молодша</option><option ${p.group==='Старша'?'selected':''}>Старша</option></select>
+        </div>
+        <div class="field"><label>Сума абонемента</label><input id="sp_debt" type="number" value="${p.debt}"></div>
+      </div>
+      <div class="field" style="margin-top:12px"><label>Примітки</label><textarea id="sp_notes">${this.esc(p.notes)}</textarea></div>
+      <div class="row" style="margin-top:14px">
+        <button class="primary" onclick="app.savePlayer('${p.id}')">Зберегти</button>
+        <button onclick="app.deletePlayer('${p.id}')">Видалити</button>
+      </div>
+    `;
+    document.getElementById('sheetWrap').classList.add('show');
+  },
+
+  savePlayer(id){
+    const p = this.state.players.find(x=>x.id===id);
+    if(!p) return;
+    p.name = document.getElementById('sp_name').value.trim();
+    p.location = document.getElementById('sp_loc').value;
+    p.group = document.getElementById('sp_group').value;
+    p.debt = Number(document.getElementById('sp_debt').value||0);
+    p.notes = document.getElementById('sp_notes').value;
+    this.save();
+    this.closeSheet();
+    this.render();
+  },
+
+  deletePlayer(id){
+    if(!confirm('Видалити гравця?')) return;
+    this.state.players = this.state.players.filter(x=>x.id!==id);
+    this.save();
+    this.closeSheet();
+    this.render();
+  },
+
+  closeSheet(){
+    document.getElementById('sheetWrap').classList.remove('show');
+  },
+
+  exportJson(){
+    const blob = new Blob([JSON.stringify(this.state,null,2)], {type:'application/json'});
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'fenomen-hub.json';
+    a.click();
+    URL.revokeObjectURL(a.href);
+  },
+
+  exportCsv(){
+    const rows = [['ПІБ','Локація','Група','Оплата','Сума','Примітки']];
+    this.state.players.forEach(p=>rows.push([p.name,p.location,p.group,p.payment,p.debt,p.notes]));
+    const csv = rows.map(r=>r.map(v=>`"${String(v).replace(/"/g,'""')}"`).join(',')).join('\n');
+    const blob = new Blob([csv], {type:'text/csv;charset=utf-8;'});
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'fenomen-hub.csv';
+    a.click();
+    URL.revokeObjectURL(a.href);
+  },
+
+  importJson(file){
+    const fr = new FileReader();
+    fr.onload = ()=>{
+      try{
+        const parsed = JSON.parse(fr.result);
+        this.state = {...seedState(), ...parsed};
+        if(!Array.isArray(this.state.markers) || !this.state.markers.length){
+          this.state.markers = this.defaultMarkers(this.state.tacticsFormation || '4-3-3');
+        }
+        this.save();
+        this.render();
+      }catch(e){
+        alert('Помилка імпорту JSON');
+      }
+    };
+    fr.readAsText(file);
+  },
+
+  resetAll(){
+    if(!confirm('Скинути всі дані?')) return;
+    localStorage.removeItem(STORAGE_KEY);
+    this.state = seedState();
+    this.render();
+  },
+
+  render(){
+    this.state.calendarMonth = this.state.monthFilter;
+    this.renderTabs();
+    this.renderHero();
+    this.showView(this.state.tab);
+    this.renderDashboard();
+    this.renderLocations();
+    this.renderGroupsView();
+    this.renderToday();
+    this.renderActivitiesView();
+    this.renderAttendance();
+    this.renderPayments();
+    this.renderFinanceView();
+    this.renderDebtors();
+    this.renderTrainers();
+    this.renderTactics();
+    this.renderAdmin();
+    this.renderExport();
+  }
+};
+
+document.getElementById('importFile').addEventListener('change', e=>{
+  const f = e.target.files[0];
+  if(f) app.importJson(f);
+  e.target.value = '';
+});
+
+app.load();
+window.app = app;
+</script>
+  <div class="app">
+    <div class="mobile-sticky-note">
+      <div class="chip">⚽ FENOMEN HUB • GitHub Ready • localStorage ON</div>
     </div>
-  </nav>
-
-  <script>
-    (function(){
-      'use strict';
-
-      const STORAGE_KEY = 'fenomen_app_single_file_v1';
-
-      const DEFAULT_DATA = {
-        ui: {
-          activeScreen: 'today',
-          calendarMonthOffset: 0,
-          attendanceDate: formatDate(new Date()),
-          attendanceHistoryDate: formatDate(new Date()),
-          paymentsQuickDate: formatDate(new Date()),
-          selectedWeekdays: [1,3,5],
-          selectedFormation: '4-3-3'
-        },
-        todayTasks: [
-          { id: uid(), text: 'Перевірити присутність на вечірньому тренуванні', done: false },
-          { id: uid(), text: 'Оновити статус оплат за поточний місяць', done: false }
-        ],
-        players: [
-          { id: uid(), name:'Іван Петренко', age:11, position:'CM', number:8, note:'Капітан молодшої групи', payment:{ status:'paid', amount:1400, date: formatDate(new Date()) } },
-          { id: uid(), name:'Максим Коваль', age:12, position:'ST', number:9, note:'Сильний удар з правої', payment:{ status:'unpaid', amount:1400, date: '' } },
-          { id: uid(), name:'Денис Шевченко', age:10, position:'GK', number:1, note:'Основний воротар', payment:{ status:'partial', amount:700, date: formatDate(new Date()) } },
-          { id: uid(), name:'Артем Бондар', age:13, position:'CB', number:4, note:'Надійний у відборі', payment:{ status:'paid', amount:1400, date: formatDate(new Date()) } },
-          { id: uid(), name:'Назар Мельник', age:9, position:'RW', number:7, note:'Швидкий фланг', payment:{ status:'unpaid', amount:1400, date: '' } }
-        ],
-        attendance: {
-          // date: { playerId: status }
-        },
-        events: [
-          // {id, date, time, type, title}
-        ],
-        tactics: {
-          boardName: 'Основна схема',
-          formation: '4-3-3',
-          markers: [],
-          lines: [],
-          savedBoards: []
-        }
-      };
-
-      const state = loadState();
-
-      const els = {
-        screens: document.querySelectorAll('.screen'),
-        navBtns: document.querySelectorAll('.nav-btn'),
-        quickNavBtns: document.querySelectorAll('[data-nav]'),
-
-        quickExportBtn: byId('quickExportBtn'),
-        quickImportBtn: byId('quickImportBtn'),
-        importFileInput: byId('importFileInput'),
-
-        // Today
-        badgeTodayDate: byId('badgeTodayDate'),
-        badgeTodayTrainings: byId('badgeTodayTrainings'),
-        badgeTodayTasks: byId('badgeTodayTasks'),
-        todayStatusCount: byId('todayStatusCount'),
-        todayPlayersCount: byId('todayPlayersCount'),
-        todayDebtorsCount: byId('todayDebtorsCount'),
-        todayAttendanceRate: byId('todayAttendanceRate'),
-        todayTrainingsList: byId('todayTrainingsList'),
-        todayTaskInput: byId('todayTaskInput'),
-        addTodayTaskBtn: byId('addTodayTaskBtn'),
-        todayTasksList: byId('todayTasksList'),
-
-        // Home
-        homeBadgePlayers: byId('homeBadgePlayers'),
-        homeBadgeUpcoming: byId('homeBadgeUpcoming'),
-        homeBadgePaid: byId('homeBadgePaid'),
-        homeTotalPlayers: byId('homeTotalPlayers'),
-        homeUpcomingCount: byId('homeUpcomingCount'),
-        homePaidCount: byId('homePaidCount'),
-        homeUnpaidCount: byId('homeUnpaidCount'),
-        homeUpcomingList: byId('homeUpcomingList'),
-        homeAnalyticsList: byId('homeAnalyticsList'),
-
-        // Attendance
-        attendanceBadgeDate: byId('attendanceBadgeDate'),
-        attendanceBadgeCount: byId('attendanceBadgeCount'),
-        attendanceBadgeHistory: byId('attendanceBadgeHistory'),
-        attendanceDate: byId('attendanceDate'),
-        attendanceSearch: byId('attendanceSearch'),
-        attendanceHistoryDate: byId('attendanceHistoryDate'),
-        attendancePlayersList: byId('attendancePlayersList'),
-        attendanceHistoryList: byId('attendanceHistoryList'),
-
-        // Payments
-        paymentsBadgeAll: byId('paymentsBadgeAll'),
-        paymentsBadgePaid: byId('paymentsBadgePaid'),
-        paymentsBadgeDebt: byId('paymentsBadgeDebt'),
-        paymentsSearch: byId('paymentsSearch'),
-        paymentsStatusFilter: byId('paymentsStatusFilter'),
-        paymentsQuickAmount: byId('paymentsQuickAmount'),
-        paymentsQuickDate: byId('paymentsQuickDate'),
-        paymentsTableBody: byId('paymentsTableBody'),
-
-        // Players
-        playersBadgeTotal: byId('playersBadgeTotal'),
-        playersBadgeFiltered: byId('playersBadgeFiltered'),
-        playerName: byId('playerName'),
-        playerAge: byId('playerAge'),
-        playerPosition: byId('playerPosition'),
-        playerNumber: byId('playerNumber'),
-        playerNote: byId('playerNote'),
-        addPlayerBtn: byId('addPlayerBtn'),
-        clearPlayerFormBtn: byId('clearPlayerFormBtn'),
-        playersSearch: byId('playersSearch'),
-        playersSort: byId('playersSort'),
-        playersList: byId('playersList'),
-
-        // Tactics
-        tacticsBadgeFormation: byId('tacticsBadgeFormation'),
-        tacticsBadgeSaved: byId('tacticsBadgeSaved'),
-        tacticsBoardName: byId('tacticsBoardName'),
-        formationSelect: byId('formationSelect'),
-        applyFormationBtn: byId('applyFormationBtn'),
-        saveTacticsBtn: byId('saveTacticsBtn'),
-        resetTacticsBtn: byId('resetTacticsBtn'),
-        clearLinesBtn: byId('clearLinesBtn'),
-        lineFromSelect: byId('lineFromSelect'),
-        lineToSelect: byId('lineToSelect'),
-        addLineBtn: byId('addLineBtn'),
-        pitch: byId('pitch'),
-        tacticsSvg: byId('tacticsSvg'),
-        markersLayer: byId('markersLayer'),
-        savedBoardsList: byId('savedBoardsList'),
-        markerEditorsList: byId('markerEditorsList'),
-
-        // Calendar
-        calendarBadgeMonth: byId('calendarBadgeMonth'),
-        calendarBadgeEvents: byId('calendarBadgeEvents'),
-        prevMonthBtn: byId('prevMonthBtn'),
-        todayMonthBtn: byId('todayMonthBtn'),
-        nextMonthBtn: byId('nextMonthBtn'),
-        calendarMonthTitle: byId('calendarMonthTitle'),
-        calendarGrid: byId('calendarGrid'),
-        eventDate: byId('eventDate'),
-        eventTime: byId('eventTime'),
-        eventType: byId('eventType'),
-        eventTitle: byId('eventTitle'),
-        addEventBtn: byId('addEventBtn'),
-        weekdayChips: byId('weekdayChips'),
-        templateTime: byId('templateTime'),
-        templateType: byId('templateType'),
-        templateWeeks: byId('templateWeeks'),
-        templateStartDate: byId('templateStartDate'),
-        generateTemplateBtn: byId('generateTemplateBtn'),
-        calendarEventsList: byId('calendarEventsList'),
-
-        // Settings
-        exportJsonBtn: byId('exportJsonBtn'),
-        importJsonBtn: byId('importJsonBtn'),
-        clearStorageBtn: byId('clearStorageBtn'),
-        resetAppBtn: byId('resetAppBtn'),
-        settingsPlayersCount: byId('settingsPlayersCount'),
-        settingsEventsCount: byId('settingsEventsCount'),
-        settingsAttendanceCount: byId('settingsAttendanceCount')
-      };
-
-      let searchState = {
-        attendanceSearch: '',
-        paymentsSearch: '',
-        paymentsStatusFilter: 'all',
-        playersSearch: '',
-        playersSort: 'name'
-      };
-
-      let dragState = {
-        markerId: null,
-        pointerId: null
-      };
-
-      init();
-
-      function init(){
-        hydrateDefaults();
-        bindGlobal();
-        bindToday();
-        bindHome();
-        bindAttendance();
-        bindPayments();
-        bindPlayers();
-        bindTactics();
-        bindCalendar();
-        bindSettings();
-        renderAll();
-      }
-
-      function hydrateDefaults(){
-        // Add default events if none
-        if (!state.events || state.events.length === 0) {
-          const today = new Date();
-          const t1 = new Date(today);
-          const t2 = new Date(today);
-          t2.setDate(t2.getDate() + 2);
-
-          state.events = [
-            {
-              id: uid(),
-              date: formatDate(t1),
-              time: '17:00',
-              type: 'Ігрове',
-              title: 'Вечірнє тренування'
-            },
-            {
-              id: uid(),
-              date: formatDate(t2),
-              time: '17:30',
-              type: 'Техніка',
-              title: 'Технічне тренування'
-            }
-          ];
-        }
-
-        // Tactics markers
-        if (!state.tactics || !Array.isArray(state.tactics.markers) || state.tactics.markers.length !== 11) {
-          state.tactics = state.tactics || {};
-          state.tactics.boardName = state.tactics.boardName || 'Основна схема';
-          state.tactics.formation = state.tactics.formation || '4-3-3';
-          state.tactics.lines = Array.isArray(state.tactics.lines) ? state.tactics.lines : [];
-          state.tactics.savedBoards = Array.isArray(state.tactics.savedBoards) ? state.tactics.savedBoards : [];
-          state.tactics.markers = createMarkersFromFormation(state.tactics.formation);
-        }
-
-        saveState();
-      }
-
-      function bindGlobal(){
-        els.navBtns.forEach(btn => {
-          btn.addEventListener('click', () => {
-            const screen = btn.dataset.screen;
-            state.ui.activeScreen = screen;
-            saveState();
-            renderNav();
-            renderScreens();
-            if (screen === 'tactics') {
-              setTimeout(() => {
-                renderTactics();
-              }, 0);
-            }
-          });
-        });
-
-        els.quickNavBtns.forEach(btn => {
-          btn.addEventListener('click', () => {
-            const target = btn.dataset.nav;
-            state.ui.activeScreen = target;
-            saveState();
-            renderNav();
-            renderScreens();
-            if (target === 'tactics') {
-              setTimeout(() => renderTactics(), 0);
-            }
-          });
-        });
-
-        els.quickExportBtn.addEventListener('click', exportJson);
-        els.quickImportBtn.addEventListener('click', () => els.importFileInput.click());
-        els.importFileInput.addEventListener('change', handleImportFile);
-      }
-
-      function bindToday(){
-        els.addTodayTaskBtn.addEventListener('click', () => {
-          const text = (els.todayTaskInput.value || '').trim();
-          if (!text) return;
-          state.todayTasks.push({ id: uid(), text, done: false });
-          els.todayTaskInput.value = '';
-          saveState();
-          renderToday();
-        });
-
-        els.todayTaskInput.addEventListener('keydown', (e) => {
-          if (e.key === 'Enter') {
-            e.preventDefault();
-            els.addTodayTaskBtn.click();
-          }
-        });
-      }
-
-      function bindHome(){}
-
-      function bindAttendance(){
-        els.attendanceDate.value = state.ui.attendanceDate || formatDate(new Date());
-        els.attendanceHistoryDate.value = state.ui.attendanceHistoryDate || formatDate(new Date());
-
-        els.attendanceDate.addEventListener('change', () => {
-          state.ui.attendanceDate = els.attendanceDate.value || formatDate(new Date());
-          saveState();
-          renderAttendance();
-        });
-
-        els.attendanceHistoryDate.addEventListener('change', () => {
-          state.ui.attendanceHistoryDate = els.attendanceHistoryDate.value || formatDate(new Date());
-          saveState();
-          renderAttendance();
-        });
-
-        els.attendanceSearch.addEventListener('input', () => {
-          searchState.attendanceSearch = els.attendanceSearch.value.trim().toLowerCase();
-          renderAttendance();
-        });
-      }
-
-      function bindPayments(){
-        els.paymentsQuickDate.value = state.ui.paymentsQuickDate || formatDate(new Date());
-
-        els.paymentsSearch.addEventListener('input', () => {
-          searchState.paymentsSearch = els.paymentsSearch.value.trim().toLowerCase();
-          renderPayments();
-        });
-
-        els.paymentsStatusFilter.addEventListener('change', () => {
-          searchState.paymentsStatusFilter = els.paymentsStatusFilter.value;
-          renderPayments();
-        });
-
-        els.paymentsQuickDate.addEventListener('change', () => {
-          state.ui.paymentsQuickDate = els.paymentsQuickDate.value || formatDate(new Date());
-          saveState();
-        });
-      }
-
-      function bindPlayers(){
-        els.addPlayerBtn.addEventListener('click', addPlayerFromForm);
-        els.clearPlayerFormBtn.addEventListener('click', clearPlayerForm);
-
-        els.playersSearch.addEventListener('input', () => {
-          searchState.playersSearch = els.playersSearch.value.trim().toLowerCase();
-          renderPlayers();
-        });
-
-        els.playersSort.addEventListener('change', () => {
-          searchState.playersSort = els.playersSort.value;
-          renderPlayers();
-        });
-      }
-
-      function bindTactics(){
-        els.tacticsBoardName.value = state.tactics.boardName || 'Основна схема';
-        els.formationSelect.value = state.tactics.formation || '4-3-3';
-
-        els.applyFormationBtn.addEventListener('click', () => {
-          const formation = els.formationSelect.value;
-          state.tactics.formation = formation;
-          state.tactics.markers = createMarkersFromFormation(formation, state.tactics.markers);
-          saveState();
-          renderTactics();
-        });
-
-        els.saveTacticsBtn.addEventListener('click', () => {
-          const name = (els.tacticsBoardName.value || '').trim() || 'Розстановка';
-          state.tactics.boardName = name;
-          const board = {
-            id: uid(),
-            name,
-            formation: state.tactics.formation,
-            markers: deepCopy(state.tactics.markers),
-            lines: deepCopy(state.tactics.lines)
-          };
-          state.tactics.savedBoards.unshift(board);
-          saveState();
-          renderTactics();
-        });
-
-        els.resetTacticsBtn.addEventListener('click', () => {
-          state.tactics.markers = createMarkersFromFormation(state.tactics.formation, state.tactics.markers);
-          saveState();
-          renderTactics();
-        });
-
-        els.clearLinesBtn.addEventListener('click', () => {
-          state.tactics.lines = [];
-          saveState();
-          renderTactics();
-        });
-
-        els.addLineBtn.addEventListener('click', () => {
-          const from = els.lineFromSelect.value;
-          const to = els.lineToSelect.value;
-          if (!from || !to || from === to) return;
-          state.tactics.lines.push({ id: uid(), from, to });
-          saveState();
-          renderTactics();
-        });
-
-        els.tacticsBoardName.addEventListener('input', () => {
-          state.tactics.boardName = els.tacticsBoardName.value;
-          saveState();
-        });
-
-        els.formationSelect.addEventListener('change', () => {
-          state.tactics.formation = els.formationSelect.value;
-          saveState();
-          renderTacticsHeaderOnly();
-        });
-      }
-
-      function bindCalendar(){
-        els.prevMonthBtn.addEventListener('click', () => {
-          state.ui.calendarMonthOffset -= 1;
-          saveState();
-          renderCalendar();
-        });
-
-        els.nextMonthBtn.addEventListener('click', () => {
-          state.ui.calendarMonthOffset += 1;
-          saveState();
-          renderCalendar();
-        });
-
-        els.todayMonthBtn.addEventListener('click', () => {
-          state.ui.calendarMonthOffset = 0;
-          saveState();
-          renderCalendar();
-        });
-
-        els.eventDate.value = formatDate(new Date());
-        els.eventTime.value = '17:00';
-        els.templateTime.value = '17:00';
-        els.templateStartDate.value = formatDate(new Date());
-
-        els.addEventBtn.addEventListener('click', addCalendarEventFromForm);
-
-        buildWeekdayChips();
-
-        els.generateTemplateBtn.addEventListener('click', generateTemplateEvents);
-      }
-
-      function bindSettings(){
-        els.exportJsonBtn.addEventListener('click', exportJson);
-        els.importJsonBtn.addEventListener('click', () => els.importFileInput.click());
-        els.clearStorageBtn.addEventListener('click', () => {
-          if (!confirm('Очистити localStorage для цього застосунку?')) return;
-          localStorage.removeItem(STORAGE_KEY);
-          alert('localStorage очищено. Перезавантаж сторінку.');
-        });
-
-        els.resetAppBtn.addEventListener('click', () => {
-          if (!confirm('Скинути всі дані до початкової бази?')) return;
-          const fresh = deepCopy(DEFAULT_DATA);
-          localStorage.setItem(STORAGE_KEY, JSON.stringify(fresh));
-          location.reload();
-        });
-      }
-
-      function renderAll(){
-        renderNav();
-        renderScreens();
-        renderToday();
-        renderHome();
-        renderAttendance();
-        renderPayments();
-        renderPlayers();
-        renderTactics();
-        renderCalendar();
-        renderSettings();
-      }
-
-      function renderNav(){
-        els.navBtns.forEach(btn => {
-          const active = btn.dataset.screen === state.ui.activeScreen;
-          btn.classList.toggle('active', active);
-        });
-      }
-
-      function renderScreens(){
-        els.screens.forEach(screen => {
-          const active = screen.id === `screen-${state.ui.activeScreen}`;
-          screen.classList.toggle('active', active);
-        });
-      }
-
-      function renderToday(){
-        const today = formatDate(new Date());
-        const todaysEvents = getEventsByDate(today);
-        const totalPlayers = state.players.length;
-        const debtors = state.players.filter(p => getPaymentStatus(p) !== 'paid').length;
-        const attRate = getOverallAttendanceRate();
-
-        els.badgeTodayDate.textContent = prettyDate(today);
-        els.badgeTodayTrainings.textContent = `Тренувань: ${todaysEvents.length}`;
-        els.badgeTodayTasks.textContent = `Задач: ${state.todayTasks.length}`;
-
-        els.todayStatusCount.textContent = todaysEvents.length;
-        els.todayPlayersCount.textContent = totalPlayers;
-        els.todayDebtorsCount.textContent = debtors;
-        els.todayAttendanceRate.textContent = `${attRate}%`;
-
-        if (todaysEvents.length === 0) {
-          els.todayTrainingsList.innerHTML = `<div class="empty">На сьогодні тренувань немає</div>`;
-        } else {
-          els.todayTrainingsList.innerHTML = todaysEvents.map(ev => `
-            <div class="player-item">
-              <div class="player-main">
-                <div class="player-name">${escapeHtml(ev.title || 'Тренування')}</div>
-                <div class="player-meta">${prettyDate(ev.date)} • ${ev.time || '—'} • ${escapeHtml(ev.type || '—')}</div>
-              </div>
-              <button class="btn btn-sm" data-nav="calendar">Відкрити</button>
-            </div>
-          `).join('');
-        }
-
-        if (state.todayTasks.length === 0) {
-          els.todayTasksList.innerHTML = `<div class="empty">Задач поки немає</div>`;
-        } else {
-          els.todayTasksList.innerHTML = state.todayTasks.map(task => `
-            <div class="player-item">
-              <div class="player-main">
-                <div class="player-name" style="${task.done ? 'text-decoration:line-through;opacity:.7;' : ''}">${escapeHtml(task.text)}</div>
-                <div class="player-meta">${task.done ? 'Виконано' : 'Активна задача'}</div>
-              </div>
-              <div class="row">
-                <button class="btn btn-sm ${task.done ? '' : 'btn-green'}" onclick="FenomenApp.toggleTodayTask('${task.id}')">${task.done ? 'Скасувати' : 'Готово'}</button>
-                <button class="btn btn-sm btn-red" onclick="FenomenApp.deleteTodayTask('${task.id}')">Видалити</button>
-              </div>
-            </div>
-          `).join('');
-        }
-
-        // rebind dynamic quick buttons inside today list if needed
-        bindQuickButtonsInContainer(document.getElementById('screen-today'));
-      }
-
-      function renderHome(){
-        const total = state.players.length;
-        const upcoming = getUpcomingEvents(5);
-        const paid = state.players.filter(p => getPaymentStatus(p) === 'paid').length;
-        const unpaid = state.players.filter(p => getPaymentStatus(p) !== 'paid').length;
-
-        els.homeBadgePlayers.textContent = `Гравців: ${total}`;
-        els.homeBadgeUpcoming.textContent = `Найближчих: ${upcoming.length}`;
-        els.homeBadgePaid.textContent = `Оплачено: ${paid}`;
-
-        els.homeTotalPlayers.textContent = total;
-        els.homeUpcomingCount.textContent = upcoming.length;
-        els.homePaidCount.textContent = paid;
-        els.homeUnpaidCount.textContent = unpaid;
-
-        if (upcoming.length === 0) {
-          els.homeUpcomingList.innerHTML = `<div class="empty">Немає найближчих тренувань</div>`;
-        } else {
-          els.homeUpcomingList.innerHTML = upcoming.map(ev => `
-            <div class="player-item">
-              <div class="player-main">
-                <div class="player-name">${escapeHtml(ev.title || 'Тренування')}</div>
-                <div class="player-meta">${prettyDate(ev.date)} • ${ev.time || '—'} • ${escapeHtml(ev.type || '—')}</div>
-              </div>
-            </div>
-          `).join('');
-        }
-
-        const totalPaidAmount = state.players.reduce((sum, p) => {
-          const pay = p.payment || {};
-          return sum + (Number(pay.amount) || 0);
-        }, 0);
-
-        const attRecords = Object.keys(state.attendance || {}).length;
-        const avgAge = total ? Math.round((state.players.reduce((s,p)=>s+(Number(p.age)||0),0)/total)*10)/10 : 0;
-
-        els.homeAnalyticsList.innerHTML = `
-          <div class="player-item">
-            <div class="player-main">
-              <div class="player-name">Зібрано коштів</div>
-              <div class="player-meta">По всіх картках оплат</div>
-            </div>
-            <div class="strong">₴${totalPaidAmount}</div>
-          </div>
-          <div class="player-item">
-            <div class="player-main">
-              <div class="player-name">Записів відвідуваності</div>
-              <div class="player-meta">Всього у localStorage</div>
-            </div>
-            <div class="strong">${attRecords}</div>
-          </div>
-          <div class="player-item">
-            <div class="player-main">
-              <div class="player-name">Середній вік</div>
-              <div class="player-meta">По всій базі</div>
-            </div>
-            <div class="strong">${avgAge}</div>
-          </div>
-        `;
-
-        bindQuickButtonsInContainer(document.getElementById('screen-home'));
-      }
-
-      function renderAttendance(){
-        const date = state.ui.attendanceDate || formatDate(new Date());
-        const historyDate = state.ui.attendanceHistoryDate || date;
-        const search = searchState.attendanceSearch || '';
-
-        const filteredPlayers = state.players
-          .filter(p => p.name.toLowerCase().includes(search))
-          .sort((a,b) => a.name.localeCompare(b.name, 'uk'));
-
-        const historyEntries = filteredPlayers
-          .map(p => {
-            const status = getAttendanceStatus(historyDate, p.id);
-            return { player: p, status };
-          })
-          .filter(x => !!x.status);
-
-        els.attendanceBadgeDate.textContent = `Дата: ${prettyDate(date)}`;
-        els.attendanceBadgeCount.textContent = `Гравців: ${filteredPlayers.length}`;
-        els.attendanceBadgeHistory.textContent = `Записів: ${historyEntries.length}`;
-
-        if (filteredPlayers.length === 0) {
-          els.attendancePlayersList.innerHTML = `<div class="empty">Гравців не знайдено</div>`;
-        } else {
-          els.attendancePlayersList.innerHTML = filteredPlayers.map(p => {
-            const currentStatus = getAttendanceStatus(date, p.id);
-            return `
-              <div class="player-item">
-                <div class="player-main">
-                  <div class="player-name">${escapeHtml(p.name)}</div>
-                  <div class="player-meta">${p.position || '—'} • №${p.number || '—'} • ${p.age || '—'} років</div>
-                  <div class="section-space">
-                    ${currentStatus ? renderAttendanceBadge(currentStatus) : `<span class="small muted">Ще не відмічено</span>`}
-                  </div>
-                </div>
-                <div class="stack" style="min-width:120px;">
-                  <button class="btn btn-sm btn-green" onclick="FenomenApp.setAttendance('${date}','${p.id}','present')">Був</button>
-                  <button class="btn btn-sm btn-gold" onclick="FenomenApp.setAttendance('${date}','${p.id}','late')">Запізнився</button>
-                  <button class="btn btn-sm btn-red" onclick="FenomenApp.setAttendance('${date}','${p.id}','absent')">Не був</button>
-                </div>
-              </div>
-            `;
-          }).join('');
-        }
-
-        if (historyEntries.length === 0) {
-          els.attendanceHistoryList.innerHTML = `<div class="empty">На ${prettyDate(historyDate)} записів немає</div>`;
-        } else {
-          els.attendanceHistoryList.innerHTML = historyEntries.map(item => `
-            <div class="player-item">
-              <div class="player-main">
-                <div class="player-name">${escapeHtml(item.player.name)}</div>
-                <div class="player-meta">${prettyDate(historyDate)}</div>
-              </div>
-              ${renderAttendanceBadge(item.status)}
-            </div>
-          `).join('');
-        }
-      }
-
-      function renderAttendanceBadge(status){
-        if (status === 'present') return `<span class="status status-present">Був</span>`;
-        if (status === 'late') return `<span class="status status-late">Запізнився</span>`;
-        return `<span class="status status-absent">Не був</span>`;
-      }
-
-      function renderPayments(){
-        const search = searchState.paymentsSearch || '';
-        const statusFilter = searchState.paymentsStatusFilter || 'all';
-
-        let rows = state.players.filter(p => p.name.toLowerCase().includes(search));
-        if (statusFilter !== 'all') {
-          rows = rows.filter(p => getPaymentStatus(p) === statusFilter);
-        }
-
-        rows.sort((a,b) => a.name.localeCompare(b.name, 'uk'));
-
-        const paidCount = state.players.filter(p => getPaymentStatus(p) === 'paid').length;
-        const debtCount = state.players.filter(p => getPaymentStatus(p) !== 'paid').length;
-
-        els.paymentsBadgeAll.textContent = `Всього: ${state.players.length}`;
-        els.paymentsBadgePaid.textContent = `Оплачено: ${paidCount}`;
-        els.paymentsBadgeDebt.textContent = `Борги: ${debtCount}`;
-
-        if (rows.length === 0) {
-          els.paymentsTableBody.innerHTML = `<tr><td colspan="7"><div class="empty">Немає результатів</div></td></tr>`;
-          return;
-        }
-
-        els.paymentsTableBody.innerHTML = rows.map(p => {
-          const pay = p.payment || {};
-          const status = getPaymentStatus(p);
-          const amount = Number(pay.amount) || 0;
-          const date = pay.date || '';
-          return `
-            <tr>
-              <td>
-                <div class="strong">${escapeHtml(p.name)}</div>
-                <div class="tiny muted">${escapeHtml(p.note || '')}</div>
-              </td>
-              <td>${p.age || '—'}</td>
-              <td>${escapeHtml(p.position || '—')}</td>
-              <td>${renderPaymentStatusBadge(status)}</td>
-              <td>
-                <input type="number" value="${amount || ''}" min="0" step="1" style="min-width:100px;" onchange="FenomenApp.updatePaymentAmount('${p.id}', this.value)" />
-              </td>
-              <td>
-                <input type="date" value="${date}" style="min-width:140px;" onchange="FenomenApp.updatePaymentDate('${p.id}', this.value)" />
-              </td>
-              <td>
-                <div class="stack" style="min-width:120px;">
-                  <button class="btn btn-sm btn-green" onclick="FenomenApp.setPaymentStatus('${p.id}','paid')">Оплачено</button>
-                  <button class="btn btn-sm btn-gold" onclick="FenomenApp.setPaymentStatus('${p.id}','partial')">Частково</button>
-                  <button class="btn btn-sm btn-red" onclick="FenomenApp.setPaymentStatus('${p.id}','unpaid')">Не оплачено</button>
-                  <button class="btn btn-sm" onclick="FenomenApp.applyQuickPayment('${p.id}')">Швидко</button>
-                </div>
-              </td>
-            </tr>
-          `;
-        }).join('');
-      }
-
-      function renderPaymentStatusBadge(status){
-        if (status === 'paid') return `<span class="status status-paid">Оплачено</span>`;
-        if (status === 'partial') return `<span class="status status-partial">Частково</span>`;
-        return `<span class="status status-unpaid">Не оплачено</span>`;
-      }
-
-      function renderPlayers(){
-        const search = searchState.playersSearch || '';
-        const sort = searchState.playersSort || 'name';
-
-        let rows = state.players.filter(p => p.name.toLowerCase().includes(search));
-
-        rows.sort((a,b) => {
-          if (sort === 'age') return (Number(a.age)||0) - (Number(b.age)||0);
-          if (sort === 'number') return (Number(a.number)||0) - (Number(b.number)||0);
-          return a.name.localeCompare(b.name, 'uk');
-        });
-
-        els.playersBadgeTotal.textContent = `Всього: ${state.players.length}`;
-        els.playersBadgeFiltered.textContent = `Показано: ${rows.length}`;
-
-        if (rows.length === 0) {
-          els.playersList.innerHTML = `<div class="empty">Гравців не знайдено</div>`;
-          return;
-        }
-
-        els.playersList.innerHTML = rows.map(p => `
-          <div class="panel">
-            <div class="row spread">
-              <div class="player-main">
-                <div class="player-name">${escapeHtml(p.name)}</div>
-                <div class="player-meta">Вік: ${p.age || '—'} • Позиція: ${escapeHtml(p.position || '—')} • №${p.number || '—'}</div>
-              </div>
-              ${renderPaymentStatusBadge(getPaymentStatus(p))}
-            </div>
-
-            <div class="divider"></div>
-
-            <div class="inline-form two">
-              <input value="${escapeHtmlAttr(p.name)}" onchange="FenomenApp.editPlayerField('${p.id}','name',this.value)" />
-              <input type="number" min="4" max="60" value="${p.age || ''}" onchange="FenomenApp.editPlayerField('${p.id}','age',this.value)" />
-              <input value="${escapeHtmlAttr(p.position || '')}" onchange="FenomenApp.editPlayerField('${p.id}','position',this.value)" />
-              <input type="number" min="1" max="99" value="${p.number || ''}" onchange="FenomenApp.editPlayerField('${p.id}','number',this.value)" />
-            </div>
-
-            <div class="section-space">
-              <textarea onchange="FenomenApp.editPlayerField('${p.id}','note',this.value)">${escapeHtml(p.note || '')}</textarea>
-            </div>
-
-            <div class="row section-space">
-              <button class="btn btn-sm btn-red" onclick="FenomenApp.deletePlayer('${p.id}')">Видалити</button>
-            </div>
-          </div>
-        `).join('');
-
-        // update tactics dropdowns if players changed
-        renderTacticsHeaderOnly();
-      }
-
-      function renderTacticsHeaderOnly(){
-        els.tacticsBadgeFormation.textContent = `Схема: ${state.tactics.formation || '4-3-3'}`;
-        els.tacticsBadgeSaved.textContent = `Збережень: ${(state.tactics.savedBoards || []).length}`;
-        els.tacticsBoardName.value = state.tactics.boardName || '';
-        els.formationSelect.value = state.tactics.formation || '4-3-3';
-
-        const markerOptions = state.tactics.markers.map(m => `<option value="${m.id}">${escapeHtml(m.label)}</option>`).join('');
-        els.lineFromSelect.innerHTML = `<option value="">Від</option>${markerOptions}`;
-        els.lineToSelect.innerHTML = `<option value="">До</option>${markerOptions}`;
-      }
-
-      function renderTactics(){
-        renderTacticsHeaderOnly();
-        renderMarkers();
-        renderLines();
-        renderSavedBoards();
-        renderMarkerEditors();
-      }
-
-      function renderMarkers(){
-        els.markersLayer.innerHTML = '';
-        state.tactics.markers.forEach(marker => {
-          const wrap = document.createElement('div');
-          wrap.className = 'marker';
-          wrap.style.left = `${marker.x}%`;
-          wrap.style.top = `${marker.y}%`;
-
-          const dot = document.createElement('div');
-          dot.className = `marker-dot ${marker.team === 'gold' ? 'marker-gold' : 'marker-red'}`;
-          dot.textContent = marker.number;
-          dot.dataset.id = marker.id;
-
-          const label = document.createElement('div');
-          label.className = 'marker-label';
-          label.textContent = marker.label || `P${marker.number}`;
-
-          wrap.appendChild(dot);
-          wrap.appendChild(label);
-          els.markersLayer.appendChild(wrap);
-
-          bindMarkerDrag(dot, marker.id);
-        });
-      }
-
-      function renderLines(){
-        const pitchRect = els.pitch.getBoundingClientRect();
-        const width = pitchRect.width || 1;
-        const height = pitchRect.height || 1;
-
-        els.tacticsSvg.innerHTML = `
-          <defs>
-            <marker id="arrowHead" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
-              <path d="M0,0 L0,6 L9,3 z" fill="#fbbf24"></path>
-            </marker>
-          </defs>
-        `;
-
-        state.tactics.lines.forEach(line => {
-          const from = state.tactics.markers.find(m => m.id === line.from);
-          const to = state.tactics.markers.find(m => m.id === line.to);
-          if (!from || !to) return;
-
-          const x1 = (from.x / 100) * width;
-          const y1 = (from.y / 100) * height;
-          const x2 = (to.x / 100) * width;
-          const y2 = (to.y / 100) * height;
-
-          const path = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-          path.setAttribute('x1', x1);
-          path.setAttribute('y1', y1);
-          path.setAttribute('x2', x2);
-          path.setAttribute('y2', y2);
-          path.setAttribute('stroke', '#fbbf24');
-          path.setAttribute('stroke-width', '3');
-          path.setAttribute('stroke-dasharray', '8 6');
-          path.setAttribute('marker-end', 'url(#arrowHead)');
-          els.tacticsSvg.appendChild(path);
-        });
-      }
-
-      function renderSavedBoards(){
-        const boards = state.tactics.savedBoards || [];
-        if (boards.length === 0) {
-          els.savedBoardsList.innerHTML = `<div class="empty">Збережених розстановок поки немає</div>`;
-          return;
-        }
-
-        els.savedBoardsList.innerHTML = boards.map(board => `
-          <div class="player-item">
-            <div class="player-main">
-              <div class="player-name">${escapeHtml(board.name)}</div>
-              <div class="player-meta">${escapeHtml(board.formation || '—')} • ${board.markers?.length || 0} фішок</div>
-            </div>
-            <div class="row">
-              <button class="btn btn-sm" onclick="FenomenApp.loadBoard('${board.id}')">Завантажити</button>
-              <button class="btn btn-sm btn-red" onclick="FenomenApp.deleteBoard('${board.id}')">Видалити</button>
-            </div>
-          </div>
-        `).join('');
-      }
-
-      function renderMarkerEditors(){
-        els.markerEditorsList.innerHTML = state.tactics.markers.map(marker => `
-          <div class="player-item">
-            <div class="player-main">
-              <div class="player-name">Фішка ${marker.number}</div>
-              <div class="player-meta">Команда: ${marker.team === 'gold' ? 'Gold' : 'Red'}</div>
-            </div>
-            <div style="min-width:140px;">
-              <input value="${escapeHtmlAttr(marker.label || '')}" onchange="FenomenApp.updateMarkerLabel('${marker.id}', this.value)" />
-            </div>
-          </div>
-        `).join('');
-      }
-
-      function renderCalendar(){
-        const current = getCalendarMonthDate();
-        const year = current.getFullYear();
-        const month = current.getMonth();
-
-        const monthTitle = `${monthName(month)} ${year}`;
-        els.calendarMonthTitle.textContent = monthTitle;
-        els.calendarBadgeMonth.textContent = monthTitle;
-
-        const monthEvents = getEventsForMonth(year, month);
-        els.calendarBadgeEvents.textContent = `Подій: ${monthEvents.length}`;
-
-        const firstDay = new Date(year, month, 1);
-        const startWeekday = firstDay.getDay();
-        const daysInMonth = new Date(year, month + 1, 0).getDate();
-
-        const todayStr = formatDate(new Date());
-
-        let html = '';
-        for (let i = 0; i < startWeekday; i++) {
-          html += `<div></div>`;
-        }
-
-        for (let day = 1; day <= daysInMonth; day++) {
-          const dateStr = formatDate(new Date(year, month, day));
-          const events = getEventsByDate(dateStr);
-          const isToday = dateStr === todayStr;
-
-          html += `
-            <div class="calendar-day ${events.length ? 'has-events' : ''} ${isToday ? 'today' : ''}" onclick="FenomenApp.pickCalendarDate('${dateStr}')">
-              <div class="calendar-num">${day}</div>
-              ${events.slice(0,2).map(ev => `<div class="calendar-tag">${escapeHtml((ev.time ? ev.time + ' ' : '') + (ev.type || 'Тренування'))}</div>`).join('')}
-              ${events.length > 2 ? `<div class="calendar-more">+${events.length - 2} ще</div>` : ''}
-            </div>
-          `;
-        }
-
-        els.calendarGrid.innerHTML = html || `<div class="empty">Немає даних</div>`;
-
-        if (monthEvents.length === 0) {
-          els.calendarEventsList.innerHTML = `<div class="empty">У цьому місяці тренувань немає</div>`;
-        } else {
-          const sorted = monthEvents.sort((a,b) => {
-            const A = `${a.date} ${a.time || '00:00'}`;
-            const B = `${b.date} ${b.time || '00:00'}`;
-            return A.localeCompare(B);
-          });
-
-          els.calendarEventsList.innerHTML = sorted.map(ev => `
-            <div class="player-item">
-              <div class="player-main">
-                <div class="player-name">${escapeHtml(ev.title || 'Тренування')}</div>
-                <div class="player-meta">${prettyDate(ev.date)} • ${ev.time || '—'} • ${escapeHtml(ev.type || '—')}</div>
-              </div>
-              <div class="row">
-                <button class="btn btn-sm" onclick="FenomenApp.openAttendanceForDate('${ev.date}')">Відмітка</button>
-                <button class="btn btn-sm btn-red" onclick="FenomenApp.deleteEvent('${ev.id}')">Видалити</button>
-              </div>
-            </div>
-          `).join('');
-        }
-      }
-
-      function renderSettings(){
-        els.settingsPlayersCount.textContent = state.players.length;
-        els.settingsEventsCount.textContent = state.events.length;
-        els.settingsAttendanceCount.textContent = Object.keys(flattenAttendance()).length;
-      }
-
-      function addPlayerFromForm(){
-        const name = (els.playerName.value || '').trim();
-        const age = Number(els.playerAge.value || 0);
-        const position = (els.playerPosition.value || '').trim();
-        const number = Number(els.playerNumber.value || 0);
-        const note = (els.playerNote.value || '').trim();
-
-        if (!name) {
-          alert('Введи ім’я гравця');
-          return;
-        }
-
-        state.players.push({
-          id: uid(),
-          name,
-          age: age || '',
-          position,
-          number: number || '',
-          note,
-          payment: {
-            status: 'unpaid',
-            amount: 1400,
-            date: ''
-          }
-        });
-
-        clearPlayerForm();
-        saveState();
-        renderPlayers();
-        renderPayments();
-        renderHome();
-        renderToday();
-        renderSettings();
-      }
-
-      function clearPlayerForm(){
-        els.playerName.value = '';
-        els.playerAge.value = '';
-        els.playerPosition.value = '';
-        els.playerNumber.value = '';
-        els.playerNote.value = '';
-      }
-
-      function addCalendarEventFromForm(){
-        const date = els.eventDate.value;
-        const time = els.eventTime.value;
-        const type = (els.eventType.value || '').trim();
-        const title = (els.eventTitle.value || '').trim();
-
-        if (!date) {
-          alert('Обери дату');
-          return;
-        }
-
-        state.events.push({
-          id: uid(),
-          date,
-          time: time || '',
-          type: type || 'Тренування',
-          title: title || 'Тренування'
-        });
-
-        els.eventType.value = '';
-        els.eventTitle.value = '';
-
-        saveState();
-        renderCalendar();
-        renderHome();
-        renderToday();
-        renderSettings();
-      }
-
-      function buildWeekdayChips(){
-        const days = [
-          { label:'Пн', value:1 },
-          { label:'Вт', value:2 },
-          { label:'Ср', value:3 },
-          { label:'Чт', value:4 },
-          { label:'Пт', value:5 },
-          { label:'Сб', value:6 },
-          { label:'Нд', value:0 }
-        ];
-
-        els.weekdayChips.innerHTML = days.map(day => `
-          <button class="chip ${state.ui.selectedWeekdays.includes(day.value) ? 'active' : ''}" data-weekday="${day.value}">${day.label}</button>
-        `).join('');
-
-        els.weekdayChips.querySelectorAll('[data-weekday]').forEach(btn => {
-          btn.addEventListener('click', () => {
-            const value = Number(btn.dataset.weekday);
-            const idx = state.ui.selectedWeekdays.indexOf(value);
-            if (idx >= 0) {
-              state.ui.selectedWeekdays.splice(idx, 1);
-            } else {
-              state.ui.selectedWeekdays.push(value);
-            }
-            saveState();
-            buildWeekdayChips();
-          });
-        });
-      }
-
-      function generateTemplateEvents(){
-        const selectedDays = Array.isArray(state.ui.selectedWeekdays) ? state.ui.selectedWeekdays.slice() : [];
-        const time = els.templateTime.value;
-        const type = (els.templateType.value || '').trim() || 'Тренування';
-        const weeks = Math.max(1, Math.min(52, Number(els.templateWeeks.value || 12)));
-        const startDate = els.templateStartDate.value;
-
-        if (!startDate) {
-          alert('Обери дату старту шаблону');
-          return;
-        }
-
-        if (selectedDays.length === 0) {
-          alert('Обери хоча б один день тижня');
-          return;
-        }
-
-        const start = new Date(startDate + 'T00:00:00');
-        const totalDays = weeks * 7;
-        let created = 0;
-
-        for (let i = 0; i < totalDays; i++) {
-          const d = new Date(start);
-          d.setDate(start.getDate() + i);
-
-          if (selectedDays.includes(d.getDay())) {
-            const date = formatDate(d);
-            const exists = state.events.some(ev => ev.date === date && ev.time === time && ev.type === type);
-            if (!exists) {
-              state.events.push({
-                id: uid(),
-                date,
-                time: time || '',
-                type,
-                title: `${type}`
-              });
-              created++;
-            }
-          }
-        }
-
-        saveState();
-        renderCalendar();
-        renderHome();
-        renderToday();
-        renderSettings();
-        alert(`Створено тренувань: ${created}`);
-      }
-
-      function bindMarkerDrag(dotEl, markerId){
-        const onPointerDown = (e) => {
-          e.preventDefault();
-          dragState.markerId = markerId;
-          dragState.pointerId = e.pointerId;
-          dotEl.setPointerCapture(e.pointerId);
-        };
-
-        const onPointerMove = (e) => {
-          if (dragState.markerId !== markerId) return;
-          if (dragState.pointerId !== e.pointerId) return;
-
-          const rect = els.pitch.getBoundingClientRect();
-          const x = ((e.clientX - rect.left) / rect.width) * 100;
-          const y = ((e.clientY - rect.top) / rect.height) * 100;
-
-          const clampedX = clamp(x, 6, 94);
-          const clampedY = clamp(y, 6, 94);
-
-          const marker = state.tactics.markers.find(m => m.id === markerId);
-          if (!marker) return;
-
-          marker.x = clampedX;
-          marker.y = clampedY;
-
-          // fast re-render only tactics
-          renderMarkers();
-          renderLines();
-        };
-
-        const onPointerUp = (e) => {
-          if (dragState.markerId !== markerId) return;
-          dragState.markerId = null;
-          dragState.pointerId = null;
-          try { dotEl.releasePointerCapture(e.pointerId); } catch(err){}
-          saveState();
-        };
-
-        dotEl.addEventListener('pointerdown', onPointerDown);
-        dotEl.addEventListener('pointermove', onPointerMove);
-        dotEl.addEventListener('pointerup', onPointerUp);
-        dotEl.addEventListener('pointercancel', onPointerUp);
-      }
-
-      function handleImportFile(e){
-        const file = e.target.files && e.target.files[0];
-        if (!file) return;
-
-        const reader = new FileReader();
-        reader.onload = function(){
-          try {
-            const parsed = JSON.parse(String(reader.result || '{}'));
-            if (!parsed || typeof parsed !== 'object') throw new Error('Invalid JSON');
-            localStorage.setItem(STORAGE_KEY, JSON.stringify(parsed));
-            alert('Імпорт успішний. Сторінка буде перезавантажена.');
-            location.reload();
-          } catch(err) {
-            alert('Помилка імпорту JSON');
-          } finally {
-            els.importFileInput.value = '';
-          }
-        };
-        reader.readAsText(file);
-      }
-
-      function exportJson(){
-        const blob = new Blob([JSON.stringify(state, null, 2)], { type: 'application/json;charset=utf-8' });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = 'fenomen-app-data.json';
-        document.body.appendChild(a);
-        a.click();
-        a.remove();
-        URL.revokeObjectURL(url);
-      }
-
-      function loadState(){
-        try {
-          const raw = localStorage.getItem(STORAGE_KEY);
-          if (!raw) return deepCopy(DEFAULT_DATA);
-          const parsed = JSON.parse(raw);
-          return mergeDeep(deepCopy(DEFAULT_DATA), parsed || {});
-        } catch(err) {
-          return deepCopy(DEFAULT_DATA);
-        }
-      }
-
-      function saveState(){
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-      }
-
-      function getPaymentStatus(player){
-        return (player.payment && player.payment.status) || 'unpaid';
-      }
-
-      function getAttendanceStatus(date, playerId){
-        if (!state.attendance[date]) return '';
-        return state.attendance[date][playerId] || '';
-      }
-
-      function setAttendance(date, playerId, status){
-        if (!state.attendance[date]) state.attendance[date] = {};
-        state.attendance[date][playerId] = status;
-        saveState();
-        renderAttendance();
-        renderToday();
-        renderHome();
-        renderSettings();
-      }
-
-      function flattenAttendance(){
-        const out = {};
-        Object.keys(state.attendance || {}).forEach(date => {
-          const day = state.attendance[date] || {};
-          Object.keys(day).forEach(pid => {
-            out[`${date}_${pid}`] = day[pid];
-          });
-        });
-        return out;
-      }
-
-      function getOverallAttendanceRate(){
-        const flat = flattenAttendance();
-        const values = Object.values(flat);
-        if (!values.length) return 0;
-        const positive = values.filter(v => v === 'present' || v === 'late').length;
-        return Math.round((positive / values.length) * 100);
-      }
-
-      function getEventsByDate(date){
-        return state.events.filter(ev => ev.date === date).sort((a,b) => (a.time || '').localeCompare(b.time || ''));
-      }
-
-      function getUpcomingEvents(limit){
-        const now = new Date();
-        const items = state.events
-          .map(ev => ({ ...ev, _dt: new Date(`${ev.date}T${ev.time || '00:00'}:00`) }))
-          .filter(ev => !isNaN(ev._dt.getTime()) && ev._dt >= now)
-          .sort((a,b) => a._dt - b._dt)
-          .slice(0, limit);
-        return items;
-      }
-
-      function getEventsForMonth(year, month){
-        return state.events.filter(ev => {
-          const d = new Date(ev.date + 'T00:00:00');
-          return d.getFullYear() === year && d.getMonth() === month;
-        });
-      }
-
-      function getCalendarMonthDate(){
-        const base = new Date();
-        return new Date(base.getFullYear(), base.getMonth() + (state.ui.calendarMonthOffset || 0), 1);
-      }
-
-      function createMarkersFromFormation(formation, oldMarkers){
-        const presets = {
-          '4-3-3': [
-            [50,88],[18,72],[38,72],[62,72],[82,72],[28,52],[50,48],[72,52],[20,22],[50,16],[80,22]
-          ],
-          '4-4-2': [
-            [50,88],[18,72],[38,72],[62,72],[82,72],[18,50],[38,48],[62,48],[82,50],[38,20],[62,20]
-          ],
-          '3-5-2': [
-            [50,88],[25,72],[50,72],[75,72],[12,50],[32,48],[50,46],[68,48],[88,50],[38,18],[62,18]
-          ]
-        };
-
-        const points = presets[formation] || presets['4-3-3'];
-        const labelsFromOld = Array.isArray(oldMarkers) && oldMarkers.length === 11 ? oldMarkers.map(m => m.label) : null;
-
-        return points.map((pt, idx) => ({
-          id: `m${idx+1}`,
-          number: idx + 1,
-          x: pt[0],
-          y: pt[1],
-          label: labelsFromOld ? (labelsFromOld[idx] || `P${idx+1}`) : `P${idx+1}`,
-          team: idx < 6 ? 'red' : 'gold'
-        }));
-      }
-
-      function bindQuickButtonsInContainer(container){
-        container.querySelectorAll('[data-nav]').forEach(btn => {
-          btn.onclick = () => {
-            const target = btn.dataset.nav;
-            state.ui.activeScreen = target;
-            saveState();
-            renderNav();
-            renderScreens();
-            if (target === 'tactics') {
-              setTimeout(() => renderTactics(), 0);
-            }
-          };
-        });
-      }
-
-      function monthName(index){
-        const names = ['Січень','Лютий','Березень','Квітень','Травень','Червень','Липень','Серпень','Вересень','Жовтень','Листопад','Грудень'];
-        return names[index] || '';
-      }
-
-      function prettyDate(dateStr){
-        const d = new Date(dateStr + 'T00:00:00');
-        if (isNaN(d.getTime())) return dateStr;
-        const dd = String(d.getDate()).padStart(2,'0');
-        const mm = String(d.getMonth()+1).padStart(2,'0');
-        const yy = d.getFullYear();
-        return `${dd}.${mm}.${yy}`;
-      }
-
-      function formatDate(date){
-        const y = date.getFullYear();
-        const m = String(date.getMonth()+1).padStart(2,'0');
-        const d = String(date.getDate()).padStart(2,'0');
-        return `${y}-${m}-${d}`;
-      }
-
-      function byId(id){
-        return document.getElementById(id);
-      }
-
-      function uid(){
-        return Math.random().toString(36).slice(2,10) + Date.now().toString(36).slice(-4);
-      }
-
-      function clamp(v,min,max){
-        return Math.max(min, Math.min(max, v));
-      }
-
-      function deepCopy(obj){
-        return JSON.parse(JSON.stringify(obj));
-      }
-
-      function mergeDeep(target, source){
-        if (typeof source !== 'object' || source === null) return target;
-        Object.keys(source).forEach(key => {
-          if (Array.isArray(source[key])) {
-            target[key] = source[key];
-          } else if (typeof source[key] === 'object' && source[key] !== null) {
-            if (!target[key] || typeof target[key] !== 'object') target[key] = {};
-            target[key] = mergeDeep(target[key], source[key]);
-          } else {
-            target[key] = source[key];
-          }
-        });
-        return target;
-      }
-
-      function escapeHtml(str){
-        return String(str)
-          .replaceAll('&','&amp;')
-          .replaceAll('<','&lt;')
-          .replaceAll('>','&gt;')
-          .replaceAll('"','&quot;')
-          .replaceAll("'","&#39;");
-      }
-
-      function escapeHtmlAttr(str){
-        return escapeHtml(str).replaceAll('\n', ' ');
-      }
-
-      // Public API for inline onclicks
-      window.FenomenApp = {
-        toggleTodayTask(taskId){
-          const task = state.todayTasks.find(t => t.id === taskId);
-          if (!task) return;
-          task.done = !task.done;
-          saveState();
-          renderToday();
-        },
-
-        deleteTodayTask(taskId){
-          state.todayTasks = state.todayTasks.filter(t => t.id !== taskId);
-          saveState();
-          renderToday();
-        },
-
-        setAttendance(date, playerId, status){
-          setAttendance(date, playerId, status);
-        },
-
-        setPaymentStatus(playerId, status){
-          const player = state.players.find(p => p.id === playerId);
-          if (!player) return;
-          player.payment = player.payment || {};
-          player.payment.status = status;
-          if (!player.payment.amount) {
-            player.payment.amount = Number(els.paymentsQuickAmount.value || 1400) || 1400;
-          }
-          if (status === 'paid' || status === 'partial') {
-            player.payment.date = player.payment.date || (els.paymentsQuickDate.value || formatDate(new Date()));
-          }
-          saveState();
-          renderPayments();
-          renderHome();
-          renderToday();
-          renderSettings();
-          renderPlayers();
-        },
-
-        updatePaymentAmount(playerId, value){
-          const player = state.players.find(p => p.id === playerId);
-          if (!player) return;
-          player.payment = player.payment || {};
-          player.payment.amount = Math.max(0, Number(value || 0));
-          saveState();
-          renderPayments();
-          renderHome();
-          renderSettings();
-        },
-
-        updatePaymentDate(playerId, value){
-          const player = state.players.find(p => p.id === playerId);
-          if (!player) return;
-          player.payment = player.payment || {};
-          player.payment.date = value || '';
-          saveState();
-          renderPayments();
-          renderHome();
-          renderSettings();
-        },
-
-        applyQuickPayment(playerId){
-          const amount = Math.max(0, Number(els.paymentsQuickAmount.value || 1400));
-          const date = els.paymentsQuickDate.value || formatDate(new Date());
-          const player = state.players.find(p => p.id === playerId);
-          if (!player) return;
-          player.payment = player.payment || {};
-          player.payment.amount = amount;
-          player.payment.date = date;
-          player.payment.status = amount >= 1400 ? 'paid' : (amount > 0 ? 'partial' : 'unpaid');
-          saveState();
-          renderPayments();
-          renderHome();
-          renderToday();
-          renderSettings();
-          renderPlayers();
-        },
-
-        editPlayerField(playerId, field, value){
-          const player = state.players.find(p => p.id === playerId);
-          if (!player) return;
-          if (field === 'age' || field === 'number') {
-            player[field] = value === '' ? '' : Number(value);
-          } else {
-            player[field] = value;
-          }
-          saveState();
-          renderPlayers();
-          renderPayments();
-          renderHome();
-          renderToday();
-          renderSettings();
-        },
-
-        deletePlayer(playerId){
-          if (!confirm('Видалити гравця?')) return;
-          state.players = state.players.filter(p => p.id !== playerId);
-
-          // remove attendance references
-          Object.keys(state.attendance || {}).forEach(date => {
-            if (state.attendance[date] && state.attendance[date][playerId]) {
-              delete state.attendance[date][playerId];
-            }
-          });
-
-          saveState();
-          renderPlayers();
-          renderPayments();
-          renderAttendance();
-          renderHome();
-          renderToday();
-          renderSettings();
-        },
-
-        updateMarkerLabel(markerId, value){
-          const marker = state.tactics.markers.find(m => m.id === markerId);
-          if (!marker) return;
-          marker.label = value || `P${marker.number}`;
-          saveState();
-          renderTactics();
-        },
-
-        loadBoard(boardId){
-          const board = state.tactics.savedBoards.find(b => b.id === boardId);
-          if (!board) return;
-          state.tactics.boardName = board.name || 'Розстановка';
-          state.tactics.formation = board.formation || '4-3-3';
-          state.tactics.markers = deepCopy(board.markers || createMarkersFromFormation('4-3-3'));
-          state.tactics.lines = deepCopy(board.lines || []);
-          saveState();
-          renderTactics();
-        },
-
-        deleteBoard(boardId){
-          state.tactics.savedBoards = state.tactics.savedBoards.filter(b => b.id !== boardId);
-          saveState();
-          renderTactics();
-        },
-
-        pickCalendarDate(date){
-          els.eventDate.value = date;
-          // visual open add section is enough
-        },
-
-        openAttendanceForDate(date){
-          state.ui.activeScreen = 'attendance';
-          state.ui.attendanceDate = date;
-          state.ui.attendanceHistoryDate = date;
-          saveState();
-          els.attendanceDate.value = date;
-          els.attendanceHistoryDate.value = date;
-          renderNav();
-          renderScreens();
-          renderAttendance();
-        },
-
-        deleteEvent(eventId){
-          if (!confirm('Видалити тренування?')) return;
-          state.events = state.events.filter(ev => ev.id !== eventId);
-          saveState();
-          renderCalendar();
-          renderHome();
-          renderToday();
-          renderSettings();
-        }
-      };
-
-      // Re-render lines on resize for accurate positions
-      window.addEventListener('resize', () => {
-        if (state.ui.activeScreen === 'tactics') {
-          renderLines();
-        }
-      });
-
-    })();
-  </script>
+  </div>
 </body>
 </html>
 ```
-
