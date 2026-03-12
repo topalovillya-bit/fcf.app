@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fenomen App</title>
+  <style>
+    :root{
+      --bg:#04070f; --panel:#0b1220; --panel2:#101827; --text:#f8fafc; --muted:#94a3b8;
+      --red:#dc2626; --red2:#7f1d1d; --gold:#fbbf24; --green:#059669; --amber:#d97706; --blue:#2563eb;
+      --line:#253246; --soft:#131d30;
+    }
+    *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+    body{
+      margin:0;font-family:Arial,Helvetica,sans-serif;color:var(--text);
+      background:
+        radial-gradient(circle at top, rgba(220,38,38,.18), transparent 24%),
+        radial-gradient(circle at bottom right, rgba(251,191,36,.10), transparent 18%),
+        var(--bg);
+    }
+    .app{max-width:1320px;margin:0 auto;padding:14px}
+    .shell,.panel,.sheet{
+      background:linear-gradient(180deg, rgba(16,24,39,.96), rgba(8,13,24,.96));
+      border:1px solid rgba(251,191,36,.12);
+      border-radius:26px;
+      box-shadow:0 18px 44px rgba(0,0,0,.30);
+    }
+    .shell{padding:18px;margin-bottom:14px;position:sticky;top:0;z-index:5;backdrop-filter:blur(8px)}
+    .brand{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap}
+    .title{font-size:clamp(28px,4vw,40px);font-weight:900;letter-spacing:.02em}
+    .subtitle{font-size:14px;color:var(--muted);margin-top:6px}
+    .tabs,.row,.stack{display:flex;gap:8px;flex-wrap:wrap}
+    .tabs{margin-top:14px}
+    .stack{flex-direction:column}
+    button,select,input,textarea{
+      background:var(--panel2);color:var(--text);border:1px solid var(--line);
+      border-radius:16px;padding:11px 14px;font:inherit
+    }
+    textarea{width:100%}
+    button{cursor:pointer}
+    .tab.active,.primary{background:linear-gradient(90deg,var(--red),var(--gold));color:#111827;border-color:#fde68a;font-weight:700}
+    .green{background:var(--green);border-color:transparent}.amber{background:var(--amber);border-color:transparent}
+    .red{background:var(--red);border-color:transparent}.blue{background:var(--blue);border-color:transparent}
+    .ghost{background:#0b1220}
+    .grid{display:grid;gap:14px}.stats{grid-template-columns:repeat(auto-fit,minmax(180px,1fr))}
+    .cards{grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}.two{grid-template-columns:1.2fr .8fr}.three{grid-template-columns:repeat(3,1fr)}
+    @media (max-width:980px){.two,.three{grid-template-columns:1fr}}
+    .panel,.sheet{padding:14px}
+    .panel-title{font-size:20px;font-weight:800;margin:0 0 6px}
+    .muted{color:var(--muted)}
+    .card{background:rgba(10,18,32,.88);border:1px solid var(--line);border-radius:20px;padding:14px}
+    .card.click{cursor:pointer}.card.sel{border-color:var(--gold);background:rgba(127,29,29,.24)}
+    .hidden{display:none!important}.table-wrap{overflow:auto;max-height:560px}
+    table{width:100%;border-collapse:collapse;min-width:860px} th,td{padding:10px 8px;border-bottom:1px solid #1e293b;text-align:left;vertical-align:top}
+    .badge{display:inline-block;padding:4px 8px;border-radius:999px;font-size:12px;font-weight:700}
+    .b-red{background:#7f1d1d}.b-green{background:#065f46}.b-amber{background:#92400e}
+    .list{max-height:560px;overflow:auto}.pill{display:inline-flex;align-items:center;gap:6px;padding:8px 12px;border-radius:999px;background:rgba(251,191,36,.95);color:#111827;font-weight:800;font-size:12px}
+    .stat{font-size:28px;font-weight:900;margin-top:8px}
+    .calendar-head,.calendar-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:8px}
+    .day{min-height:86px;border-radius:16px;border:1px solid var(--line);background:#0b1220;padding:8px}
+    .day.active{background:rgba(127,29,29,.35);border-color:var(--gold)}
+    .small{font-size:12px}.footer-note{font-size:12px;color:var(--muted);margin-top:8px}
+    .mobile-dock{
+      position:fixed;left:10px;right:10px;bottom:10px;z-index:7;
+      background:rgba(8,13,24,.96);border:1px solid rgba(251,191,36,.10);border-radius:22px;
+      display:grid;grid-template-columns:repeat(5,1fr);gap:8px;padding:10px;box-shadow:0 18px 40px rgba(0,0,0,.35)
+    }
+    .dock-btn{padding:10px 8px;text-align:center;font-size:12px;border-radius:14px}
+    @media (min-width:980px){.mobile-dock{display:none}}
+    .with-dock{padding-bottom:96px}
+    .toolbar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+    .pitch-wrap{
+      position:relative;height:640px;border-radius:26px;overflow:hidden;border:1px solid rgba(34,197,94,.4);
+      background:linear-gradient(180deg, rgba(4,120,87,.88), rgba(6,78,59,.88));
+      touch-action:none;
+    }
+    @media (max-width:720px){.pitch-wrap{height:520px}}
+    .pitch-half{position:absolute;left:50%;top:14px;bottom:14px;width:2px;background:rgba(255,255,255,.82);transform:translateX(-50%)}
+    .pitch-circle{position:absolute;left:50%;top:50%;width:98px;height:98px;border:2px solid rgba(255,255,255,.82);border-radius:999px;transform:translate(-50%,-50%)}
+    .pitch-box-top,.pitch-box-bottom{position:absolute;left:18%;right:18%;height:72px;border:2px solid rgba(255,255,255,.82)}
+    .pitch-box-top{top:14px;border-top-left-radius:18px;border-top-right-radius:18px}
+    .pitch-box-bottom{bottom:14px;border-bottom-left-radius:18px;border-bottom-right-radius:18px}
+    .marker{position:absolute;transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center;gap:4px}
+    .dot{
+      width:46px;height:46px;border-radius:999px;border:2px solid rgba(255,255,255,.92);font-weight:800;
+      display:flex;align-items:center;justify-content:center;cursor:grab;touch-action:none;user-select:none;
+      box-shadow:0 8px 18px rgba(0,0,0,.22)
+    }
+    .dot.red{background:var(--red)} .dot.gold{background:var(--gold);color:#111827;border-color:#fff3c4}
+    .marker input{width:62px;padding:5px 6px;border-radius:10px;font-size:12px;text-align:center;background:#08111f}
+    .seg{display:flex;gap:8px;flex-wrap:wrap}
+    .hero-mini{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-top:14px}
+  </style>
+</head>
+<body>
+<div class="app with-dock">
+  <div class="shell">
+    <div class="brand">
+      <div>
+        <div class="title">Fenomen App</div>
+        <div class="subtitle">Команди • тренування • тактика • фінанси</div>
+      </div>
+      <div class="row">
+        <button class="primary" onclick="app.exportJson()">Експорт JSON</button>
+        <button class="ghost" onclick="app.importJsonClick()">Імпорт JSON</button>
+        <button class="ghost" onclick="app.exportCsv()">Експорт CSV</button>
+        <input id="jsonImport" type="file" accept="application/json" class="hidden" />
+      </div>
+    </div>
+    <div class="hero-mini">
+      <div class="card"><div class="muted small">Сьогодні</div><div id="hero-date" class="stat" style="font-size:20px">—</div></div>
+      <div class="card"><div class="muted small">Локація</div><div id="hero-location" class="stat" style="font-size:20px">—</div></div>
+      <div class="card"><div class="muted small">Тренер</div><div id="hero-trainer" class="stat" style="font-size:20px">—</div></div>
+      <div class="card"><div class="muted small">Дітей у базі</div><div id="hero-count" class="stat" style="font-size:20px">—</div></div>
+    </div>
+    <div class="tabs" id="tabs"></div>
+  </div>
+
+  <div id="view-dashboard" class="view"></div>
+  <div id="view-locations" class="view hidden"></div>
+  <div id="view-today" class="view hidden"></div>
+  <div id="view-attendance" class="view hidden"></div>
+  <div id="view-payments" class="view hidden"></div>
+  <div id="view-debtors" class="view hidden"></div>
+  <div id="view-trainers" class="view hidden"></div>
+  <div id="view-tactics" class="view hidden"></div>
+  <div id="view-admin" class="view hidden"></div>
+  <div id="view-export" class="view hidden"></div>
+</div>
+
+<div class="mobile-dock">
+  <button class="dock-btn" onclick="app.setTab('dashboard')">Головна</button>
+  <button class="dock-btn" onclick="app.setTab('attendance')">Відмітка</button>
+  <button class="dock-btn" onclick="app.setTab('payments')">Оплати</button>
+  <button class="dock-btn" onclick="app.setTab('tactics')">Тактика</button>
+  <button class="dock-btn" onclick="app.setTab('locations')">Гравці</button>
+</div>
+
+<script>
+const YEAR = 2026;
+const STORAGE_KEY = 'fenomen_app_html_v3';
+const ATT = ['Був','Запізнився','Пробне','Травма','Пропуск'];
+const MONTHS = ['Січень','Лютий','Березень','Квітень','Травень','Червень','Липень','Серпень','Вересень','Жовтень','Листопад','Грудень'];
+const DAYS = { 'Нд':0,'Пн':1,'Вт':2,'Ср':3,'Чт':4,'Пт':5,'Сб':6 };
+const TABS = [['dashboard','Дашборд'],['locations','Гравці'],['today','Сьогодні'],['attendance','Відвідування'],['payments','Оплати'],['debtors','Боржники'],['trainers','Тренери'],['tactics','Тактика'],['admin','Адмін'],['export','Експорт']];
+const LOCATIONS = [
+  { name:'Блиставиця', trainer:'Олександр Шипулов', days:['Пн','Ср','Пт'], price:1400 },
+  { name:'Синяк', trainer:'Ілля Топалов', days:['Пн','Ср','Пт'], price:1400 },
+  { name:'Бабинці', trainer:'Олександр Шипулов', days:['Вт','Чт','Сб'], price:1400 },
+  { name:'Нове Залісся', trainer:'Олександр Шипулов', days:['Чт','Пт'], price:1200 },
+  { name:'Буча', trainer:'Михайло Шершень', days:['Вт','Чт','Сб'], price:1400 },
+  { name:'Луб’янка', trainer:'Ілля Топалов', days:['Вт','Чт','Сб'], price:1400 },
+];
+const RAW = [
+  ['Чиренко Софія','Блиставиця'],['Денисюк Тимофій','Блиставиця'],['Денисюк Платон','Блиставиця'],['Головенець Лука','Блиставиця'],['Католіченко Влад','Блиставиця'],['Кулаков Ілля','Блиставиця'],['Сліпенко Степан','Блиставиця'],['Войтович Михайло','Блиставиця'],['Колесник Маргарита','Блиставиця'],['Ткачик Дарина','Блиставиця'],['Гребенюк Поліна','Блиставиця'],['Пелешок Андрій','Блиставиця'],['Шевченко Тимофій','Блиставиця'],['Католіченко Артем','Блиставиця'],['Круковець Матвій','Блиставиця'],['Семерок Ангеліна','Блиставиця'],['Пилипенко Артем','Блиставиця'],['Демченко Анна','Блиставиця'],['Прокаєва Анна','Блиставиця'],['Степанюк Матвій','Блиставиця'],['Степанюк Макар','Блиставиця'],['Міль Антон','Блиставиця'],['Фурманчук Богдан','Блиставиця'],['Туровський','Блиставиця'],['Слобожан Захар','Блиставиця'],['Запорожець Гліб','Блиставиця'],['Клименко Даніл','Блиставиця'],
+  ['Розлач Іван','Синяк'],['Космацький Даніель','Синяк'],['Ганжа Андрій','Синяк'],['Смірнов Назар','Синяк'],['Ратних Ярослав','Синяк'],['Гаврилов Гліб','Синяк'],['Корж Тимофій','Синяк'],['Шевчук Матвій','Синяк'],['Петренко Юрій','Синяк'],['Ганіцький Сергій','Синяк'],['Посох Дмитро','Синяк'],['Єриго Павло','Синяк'],['Приймак Владислав','Синяк'],['Лисенко Василь','Синяк'],['Травянко Тимур','Синяк'],['Зінченко Денис','Синяк'],['Хижняк Іван','Синяк'],['Колісніченко Мирослав','Синяк'],['Терещенко Іван','Синяк'],['Павлов Лев','Синяк'],['Лисенко Василь','Синяк'],['Щуренко Евгеній','Синяк'],['Теребій Давид','Синяк'],['Чамата Назар','Синяк'],['Федоренко Макар','Синяк'],['Лавицький Ростислав','Синяк'],['Лелека Нікіта','Синяк'],['Мармелюк Макар','Синяк'],['Мармелюк Iлля','Синяк'],['Архипенко Дмитро','Синяк'],['Коваленко Владислав','Синяк'],['Фалько Динил','Синяк'],['Стецюк Матвій','Синяк'],['Стецюк Назар','Синяк'],['Зінченко Валерія','Синяк'],
+  ['Безсмертний Олександр','Бабинці'],['Олексюк Віктор','Бабинці'],['Ткач Данііл','Бабинці'],['Щербаков Матвій','Бабинці'],['Павлюченко Кирилл','Бабинці'],['Ромашкін Богдан','Бабинці'],['Логвиненко Денис','Бабинці'],['Моргун Арсен','Бабинці'],['Гудков Андрій','Бабинці'],['Ренцевич Роман','Бабинці'],['Матейко Соломія','Бабинці'],['Кизим Дмитро','Бабинці'],['Іваненко Дмитро','Бабинці'],['Самусенко Максим','Бабинці'],['Прибильський Іван','Бабинці'],['Шкурка Олександр','Бабинці'],['Болілий Вадим','Бабинці'],['Дрондін Артем','Бабинці'],['Щелкунов Арсен','Бабинці'],['Примаченко Тимофіі','Бабинці'],['Кубицький Антон','Бабинці'],['Добривечор Артем','Бабинці'],['Мазепа Нікіта','Бабинці'],['Порубов Олексій','Бабинці'],['Мадяр Даніель','Бабинці'],['Яковенко Гліб','Бабинці'],['Конфорович','Бабинці'],['Лелека Нікіта','Бабинці'],['Стариш','Бабинці'],['Клєвцов Роман','Бабинці'],['Макарчук Артем','Бабинці'],['Булацький','Бабинці'],['Моісеєнко Артем','Бабинці'],['Сотніков Олександр','Бабинці'],['Реган Данил','Бабинці'],['Щербаков Тімур','Бабинці'],['Кравчук Тимофій','Бабинці'],['Вислоцький Артем','Бабинці'],
+  ['Романенко Роман','Нове Залісся'],['Кулакевич Захар','Нове Залісся'],['Лічман Дмитро','Нове Залісся'],['Плескань Даниїл','Нове Залісся'],['Рева Олександр','Нове Залісся'],['Гогсадзе Давид','Нове Залісся'],['Росовський Нікіта','Нове Залісся'],['Маслюківський Арсеній','Нове Залісся'],['Петрусенко Дмитро','Нове Залісся'],['Хрущ Ярослав','Нове Залісся'],['Гончаров Юрій','Нове Залісся'],['Тарай Тимофій','Нове Залісся']
+];
+
+const app = {
+  state: {
+    tab: 'dashboard', players: [], attendance: {}, selectedLocation: 'Блиставиця', selectedDate: `${YEAR}-03-12`,
+    selectedPlayerId: 1, search: '', calendarTrainer: 'Олександр Шипулов', calendarMonth: 2,
+    adminName: '', adminPhone: '', adminLocation: 'Блиставиця', adminGroup: 'Молодша',
+    boardName: 'Схема', selectedFormation: '4-3-3', boardDragId: null, boardLines: [], lineFrom: '', lineTo: '',
+    savedBoards: [], markers: []
+  },
+
+  init(){ this.state.players=this.makePlayers(); this.state.markers=this.defaultMarkers(); this.load(); this.bindImport(); this.render(); },
+  makePlayers(){ return RAW.map((r,i)=>({id:i+1,name:r[0],location:r[1],trainer:LOCATIONS.find(l=>l.name===r[1])?.trainer||'—',payment:'Не оплачено',debt:LOCATIONS.find(l=>l.name===r[1])?.price||1400,group:i%2===0?'Молодша':'Старша',phone:'',note:''})) },
+  sessions(){ const out=[]; for(let m=0;m<12;m++){ const dim=new Date(YEAR,m+1,0).getDate(); for(let d=1;d<=dim;d++){ const wd=new Date(YEAR,m,d).getDay(); LOCATIONS.forEach(loc=>{ if(loc.days.some(x=>DAYS[x]===wd)){ out.push({id:`${loc.name}-${m+1}-${d}`,location:loc.name,trainer:loc.trainer,dateISO:`${YEAR}-${String(m+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`}) }}) } } return out },
+  defaultMarkers(){ return Array.from({length:11}).map((_,i)=>({id:i+1,x:12+(i%4)*20,y:15+Math.floor(i/4)*22,label:String(i+1),color:i<6?'red':'gold'})) },
+  load(){ try{ const raw=localStorage.getItem(STORAGE_KEY); if(!raw) return; Object.assign(this.state, JSON.parse(raw)); }catch(e){} },
+  save(){ localStorage.setItem(STORAGE_KEY, JSON.stringify(this.state)); },
+  bindImport(){ const inp=document.getElementById('jsonImport'); inp.addEventListener('change',e=>{ const file=e.target.files?.[0]; if(!file) return; const reader=new FileReader(); reader.onload=()=>{ try{ const parsed=JSON.parse(String(reader.result||'{}')); if(parsed.players) this.state.players=parsed.players; if(parsed.attendance) this.state.attendance=parsed.attendance; if(parsed.markers) this.state.markers=parsed.markers; if(parsed.savedBoards) this.state.savedBoards=parsed.savedBoards; this.save(); this.render(); }catch(err){} }; reader.readAsText(file); }); },
+  importJsonClick(){ document.getElementById('jsonImport').click(); },
+  selectedPlayer(){ return this.state.players.find(p=>p.id===this.state.selectedPlayerId) || this.state.players[0]; },
+  esc(str){ return String(str).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;'); },
+  attendanceRate(){ const keys=Object.keys(this.state.attendance); const present=keys.filter(k=>this.state.attendance[k]==='Був'||this.state.attendance[k]==='Запізнився').length; return keys.length?Math.round((present/keys.length)*100):0; },
+  selectedPlayerAttendanceRate(){ const p=this.selectedPlayer(); const keys=Object.keys(this.state.attendance).filter(k=>k.endsWith(`_${p.id}`)); const present=keys.filter(k=>this.state.attendance[k]==='Був'||this.state.attendance[k]==='Запізнився').length; return keys.length?Math.round((present/keys.length)*100):0; },
+  statusBadge(status){ const cls=status==='Оплачено'?'b-green':status==='Частково'?'b-amber':'b-red'; return `<span class="badge ${cls}">${status}</span>`; },
+  setTab(tab){ this.state.tab=tab; this.render(); }, setLocation(v){ this.state.selectedLocation=v; this.render(); }, setDate(v){ this.state.selectedDate=v; this.render(); }, setSearch(v){ this.state.search=v; this.render(); }, setPlayer(id){ this.state.selectedPlayerId=id; this.render(); }, setTrainer(v){ this.state.calendarTrainer=v; this.render(); }, setCalendarMonth(v){ this.state.calendarMonth=Number(v); this.render(); },
+  setPayment(id,status){ this.state.players=this.state.players.map(p=>{ if(p.id!==id) return p; const price=LOCATIONS.find(l=>l.name===p.location)?.price||1400; return {...p,payment:status,debt:status==='Оплачено'?0:status==='Частково'?Math.round(price/2):price}; }); this.save(); this.render(); },
+  updatePlayer(id,field,val){ this.state.players=this.state.players.map(p=>p.id===id?{...p,[field]:val}:p); this.save(); },
+  toggleAttendance(playerId,status){ const key=`${this.state.selectedLocation}_${this.state.selectedDate}_${playerId}`; this.state.attendance[key]=this.state.attendance[key]===status?'':status; this.save(); this.render(); },
+  addPlayer(){ if(!this.state.adminName.trim()) return; const loc=LOCATIONS.find(l=>l.name===this.state.adminLocation)||LOCATIONS[0]; this.state.players.push({id:Date.now(),name:this.state.adminName.trim(),location:loc.name,trainer:loc.trainer,payment:'Не оплачено',debt:loc.price,group:this.state.adminGroup,phone:this.state.adminPhone,note:''}); this.state.adminName=''; this.state.adminPhone=''; this.save(); this.render(); },
+  exportJson(){ const blob=new Blob([JSON.stringify({players:this.state.players,attendance:this.state.attendance,markers:this.state.markers,savedBoards:this.state.savedBoards},null,2)],{type:'application/json;charset=utf-8'}); const url=URL.createObjectURL(blob); const a=document.createElement('a'); a.href=url; a.download='fenomen-app.json'; a.click(); URL.revokeObjectURL(url); },
+  exportCsv(){ const rows=[['ПІБ','Локація','Тренер','Статус','Борг']]; this.state.players.forEach(p=>rows.push([p.name,p.location,p.trainer,p.payment,String(p.debt)])); const csv=rows.map(r=>r.map(c=>`"${String(c).replace(/"/g,'""')}"`).join(',')).join('\n'); const blob=new Blob([csv],{type:'text/csv;charset=utf-8'}); const url=URL.createObjectURL(blob); const a=document.createElement('a'); a.href=url; a.download='fenomen-app.csv'; a.click(); URL.revokeObjectURL(url); },
+  applyFormation(name){ this.state.selectedFormation=name; const presets={'4-3-3':[{x:50,y:88},{x:18,y:70},{x:38,y:72},{x:62,y:72},{x:82,y:70},{x:28,y:50},{x:50,y:48},{x:72,y:50},{x:20,y:24},{x:50,y:18},{x:80,y:24}],'4-4-2':[{x:50,y:88},{x:18,y:70},{x:38,y:72},{x:62,y:72},{x:82,y:70},{x:18,y:48},{x:38,y:46},{x:62,y:46},{x:82,y:48},{x:38,y:20},{x:62,y:20}],'3-5-2':[{x:50,y:88},{x:25,y:70},{x:50,y:72},{x:75,y:70},{x:12,y:48},{x:32,y:46},{x:50,y:44},{x:68,y:46},{x:88,y:48},{x:38,y:18},{x:62,y:18}]}; const arr=presets[name]||presets['4-3-3']; this.state.markers=this.state.markers.map((m,i)=>({...m,x:arr[i]?.x||m.x,y:arr[i]?.y||m.y})); this.save(); this.render(); },
+  saveBoard(){ this.state.savedBoards.push({id:Date.now(),name:this.state.boardName||'Схема',markers:JSON.parse(JSON.stringify(this.state.markers)),lines:JSON.parse(JSON.stringify(this.state.boardLines))}); this.save(); this.render(); },
+  loadBoard(id){ const item=this.state.savedBoards.find(x=>x.id===id); if(!item) return; this.state.boardName=item.name; this.state.markers=JSON.parse(JSON.stringify(item.markers)); this.state.boardLines=JSON.parse(JSON.stringify(item.lines||[])); this.save(); this.render(); },
+  addLine(){ if(!this.state.lineFrom||!this.state.lineTo||this.state.lineFrom===this.state.lineTo) return; this.state.boardLines.push({id:Date.now(),from:Number(this.state.lineFrom),to:Number(this.state.lineTo)}); this.state.lineFrom=''; this.state.lineTo=''; this.save(); this.render(); },
+  removeLine(id){ this.state.boardLines=this.state.boardLines.filter(x=>x.id!==id); this.save(); this.render(); },
+  mountBoardDrag(){ const pitch=document.getElementById('pitch'); if(!pitch) return; const onMove=(clientX,clientY)=>{ if(this.state.boardDragId==null) return; const rect=pitch.getBoundingClientRect(); const x=((clientX-rect.left)/rect.width)*100; const y=((clientY-rect.top)/rect.height)*100; this.state.markers=this.state.markers.map(m=>m.id===this.state.boardDragId?{...m,x:Math.max(4,Math.min(96,x)),y:Math.max(4,Math.min(96,y))}:m); this.save(); this.renderTacticsOnly(); }; pitch.onpointermove=e=>onMove(e.clientX,e.clientY); pitch.onpointerup=()=>{this.state.boardDragId=null}; pitch.onpointerleave=()=>{this.state.boardDragId=null}; pitch.onpointercancel=()=>{this.state.boardDragId=null}; },
+  renderTabs(){ const wrap=document.getElementById('tabs'); wrap.innerHTML=''; TABS.forEach(([k,l])=>{ const b=document.createElement('button'); b.className='tab'+(this.state.tab===k?' active':''); b.textContent=l; b.onclick=()=>this.setTab(k); wrap.appendChild(b); }); },
+  showView(name){ document.querySelectorAll('.view').forEach(v=>v.classList.add('hidden')); document.getElementById(`view-${name}`).classList.remove('hidden'); },
+  renderHero(){ document.getElementById('hero-date').textContent=this.state.selectedDate; document.getElementById('hero-location').textContent=this.state.selectedLocation; document.getElementById('hero-trainer').textContent=LOCATIONS.find(l=>l.name===this.state.selectedLocation)?.trainer||'—'; document.getElementById('hero-count').textContent=this.state.players.length; },
+  renderDashboard(){ const debtors=this.state.players.filter(p=>p.payment!=='Оплачено').length; const income=this.state.players.filter(p=>p.payment==='Оплачено').reduce((s,p)=>s+(LOCATIONS.find(l=>l.name===p.location)?.price||1400),0); document.getElementById('view-dashboard').innerHTML=`<div class="grid stats"><div class="card"><div class="muted">Усього дітей</div><div class="stat">${this.state.players.length}</div></div><div class="card"><div class="muted">Активні</div><div class="stat">${this.state.players.length}</div></div><div class="card"><div class="muted">Боржники</div><div class="stat">${debtors}</div></div><div class="card"><div class="muted">Дохід</div><div class="stat">₴${income}</div></div><div class="card"><div class="muted">Attendance %</div><div class="stat">${this.attendanceRate()}%</div></div></div><div class="grid cards" style="margin-top:16px">${LOCATIONS.map(loc=>`<div class="card"><div class="panel-title">${loc.name}</div><div class="muted">${loc.trainer}</div><div style="margin-top:10px">Дітей: ${this.state.players.filter(p=>p.location===loc.name).length}</div><div>Ціна: ₴${loc.price}</div></div>`).join('')}</div>`; },
+  renderLocations(){ const p=this.selectedPlayer(); document.getElementById('view-locations').innerHTML=`<div class="row">${LOCATIONS.map(loc=>`<button class="${this.state.selectedLocation===loc.name?'primary':''}" onclick="app.setLocation('${loc.name}')">${loc.name}</button>`).join('')}</div><div class="grid two" style="margin-top:16px"><div class="panel"><div class="panel-title">${this.state.selectedLocation}</div><div class="muted">Тренер: ${LOCATIONS.find(l=>l.name===this.state.selectedLocation)?.trainer||'—'}</div><div class="grid cards" style="margin-top:16px">${this.state.players.filter(x=>x.location===this.state.selectedLocation).map(x=>`<button class="card click ${this.state.selectedPlayerId===x.id?'sel':''}" onclick="app.setPlayer(${x.id})"><div style="font-weight:700">${this.esc(x.name)}</div><div class="muted small">${x.payment} • ₴${x.debt}</div></button>`).join('')}</div></div><div class="panel"><div class="panel-title">Картка гравця</div><div style="color:#fca5a5">${this.esc(p.name)}</div><div class="grid" style="grid-template-columns:1fr 1fr; margin-top:16px"><input value="${this.esc(p.name)}" oninput="app.updatePlayer(${p.id}, 'name', this.value); app.save()" /><input value="${this.esc(p.phone||'')}" placeholder="Телефон" oninput="app.updatePlayer(${p.id}, 'phone', this.value); app.save()" /><select onchange="app.setPayment(${p.id}, this.value)"><option ${p.payment==='Не оплачено'?'selected':''}>Не оплачено</option><option ${p.payment==='Частково'?'selected':''}>Частково</option><option ${p.payment==='Оплачено'?'selected':''}>Оплачено</option></select><input value="${this.esc(p.group||'')}" oninput="app.updatePlayer(${p.id}, 'group', this.value); app.save()" /></div><textarea rows="4" style="margin-top:12px" placeholder="Нотатки" oninput="app.updatePlayer(${p.id}, 'note', this.value); app.save()">${this.esc(p.note||'')}</textarea><div class="grid stats" style="margin-top:12px"><div class="card"><div class="muted">Attendance %</div><div class="stat">${this.selectedPlayerAttendanceRate()}%</div></div><div class="card"><div class="muted">Борг</div><div class="stat">₴${p.debt}</div></div><div class="card"><div class="muted">Статус</div><div class="stat" style="font-size:20px">${p.payment}</div></div></div></div></div>`; },
+  renderToday(){ const today=this.sessions().filter(s=>s.dateISO===this.state.selectedDate); document.getElementById('view-today').innerHTML=`<div class="grid" style="grid-template-columns:1fr auto;gap:16px"><input type="date" value="${this.state.selectedDate}" onchange="app.setDate(this.value)" /><div class="pill">COACH MODE</div></div><div class="grid cards" style="margin-top:16px">${today.map(s=>`<div class="card"><div class="panel-title">${s.location}</div><div class="muted">${s.trainer}</div><div style="margin-top:10px">Гравців: ${this.state.players.filter(p=>p.location===s.location).length}</div></div>`).join('') || '<div class="card">На цю дату тренувань немає.</div>'}</div>`; },
+  renderAttendance(){ const list=this.state.players.filter(p=>p.location===this.state.selectedLocation); document.getElementById('view-attendance').innerHTML=`<div class="row"><select onchange="app.setLocation(this.value)">${LOCATIONS.map(l=>`<option ${this.state.selectedLocation===l.name?'selected':''}>${l.name}</option>`).join('')}</select><input type="date" value="${this.state.selectedDate}" onchange="app.setDate(this.value)" /></div><div class="panel list" style="margin-top:16px">${list.map(p=>{const key=`${this.state.selectedLocation}_${this.state.selectedDate}_${p.id}`;const status=this.state.attendance[key]||'—';return `<div class="card" style="margin-bottom:10px"><div style="font-weight:700">${this.esc(p.name)}</div><div class="muted small" style="margin:6px 0 10px">Статус: ${status}</div><div class="row">${ATT.map(s=>`<button onclick="app.toggleAttendance(${p.id}, '${s}')">${s}</button>`).join('')}</div></div>`}).join('')}</div>`; },
+  renderPayments(){ const list=this.state.players.filter(p=>p.name.toLowerCase().includes(this.state.search.toLowerCase())); document.getElementById('view-payments').innerHTML=`<div class="panel"><input placeholder="Пошук гравця" value="${this.esc(this.state.search)}" oninput="app.setSearch(this.value)" style="width:100%; margin-bottom:12px" /><div class="table-wrap"><table><thead><tr><th>Дитина</th><th>Локація</th><th>Статус</th><th>Борг</th><th>Дія</th></tr></thead><tbody>${list.map(p=>`<tr><td>${this.esc(p.name)}</td><td>${p.location}</td><td>${this.statusBadge(p.payment)}</td><td>₴${p.debt}</td><td><div class="row"><button class="green" onclick="app.setPayment(${p.id}, 'Оплачено')">Оплачено</button><button class="amber" onclick="app.setPayment(${p.id}, 'Частково')">Частково</button><button class="red" onclick="app.setPayment(${p.id}, 'Не оплачено')">Борг</button></div></td></tr>`).join('')}</tbody></table></div></div>`; },
+  renderDebtors(){ const debtors=this.state.players.filter(p=>p.payment!=='Оплачено'); document.getElementById('view-debtors').innerHTML=`<div class="panel"><div class="panel-title">Боржники</div><div class="table-wrap"><table><thead><tr><th>Дитина</th><th>Локація</th><th>Тренер</th><th>Борг</th></tr></thead><tbody>${debtors.map(p=>`<tr><td>${this.esc(p.name)}</td><td>${p.location}</td><td>${p.trainer}</td><td>₴${p.debt}</td></tr>`).join('')}</tbody></table></div></div>`; },
+  renderTrainers(){ document.getElementById('view-trainers').innerHTML=`<div class="grid cards">${['Олександр Шипулов','Ілля Топалов','Михайло Шершень'].map(name=>`<div class="card"><div class="panel-title">${name}</div><div class="muted">Локації: ${LOCATIONS.filter(l=>l.trainer===name).map(l=>l.name).join(', ')||'—'}</div><div class="small" style="margin-top:8px">Гравців: ${this.state.players.filter(p=>p.trainer===name).length}</div></div>`).join('')}</div><div class="panel" style="margin-top:16px"><div class="row" style="justify-content:space-between;align-items:center"><div><div class="panel-title">Календар-сітка тренера</div><div class="muted">${this.state.calendarTrainer} • ${MONTHS[this.state.calendarMonth]} ${YEAR}</div></div><div class="row"><select onchange="app.setTrainer(this.value)">${['Олександр Шипулов','Ілля Топалов','Михайло Шершень'].map(n=>`<option ${this.state.calendarTrainer===n?'selected':''}>${n}</option>`).join('')}</select><select onchange="app.setCalendarMonth(this.value)">${MONTHS.map((m,i)=>`<option value="${i}" ${this.state.calendarMonth===i?'selected':''}>${m}</option>`).join('')}</select></div></div><div class="calendar-head" style="margin-top:12px">${['Нд','Пн','Вт','Ср','Чт','Пт','Сб'].map(d=>`<div class="small" style="text-align:center;color:#fca5a5;font-weight:700">${d}</div>`).join('')}</div><div class="calendar-grid" style="margin-top:8px">${Array.from({length:new Date(YEAR,this.state.calendarMonth,1).getDay()}).map(()=>`<div class="day"></div>`).join('')}${Array.from({length:new Date(YEAR,this.state.calendarMonth+1,0).getDate()}).map((_,idx)=>{const day=idx+1;const iso=`${YEAR}-${String(this.state.calendarMonth+1).padStart(2,'0')}-${String(day).padStart(2,'0')}`;const active=this.sessions().some(s=>s.trainer===this.state.calendarTrainer&&s.dateISO===iso);return `<div class="day ${active?'active':''}"><div style="font-weight:700">${day}</div>${active?'<div class="small" style="margin-top:4px;color:#fca5a5">Тренування</div>':''}</div>`}).join('')}</div></div>`; },
+  renderTacticsOnly(){ const wrap=document.getElementById('view-tactics'); if(!wrap || wrap.classList.contains('hidden')) return; wrap.innerHTML=this.tacticsHtml(); this.mountBoardDrag(); },
+  tacticsHtml(){ const linesSvg=this.state.boardLines.map(line=>{const a=this.state.markers.find(m=>m.id===line.from);const b=this.state.markers.find(m=>m.id===line.to);if(!a||!b)return '';return `<line x1="${a.x}%" y1="${a.y}%" x2="${b.x}%" y2="${b.y}%" stroke="#fbbf24" stroke-width="3" stroke-dasharray="8 6" />`}).join(''); return `<div class="panel"><div class="toolbar"><input value="${this.esc(this.state.boardName)}" oninput="app.state.boardName=this.value; app.save()" placeholder="Назва схеми" /><button class="primary" onclick="app.saveBoard()">Зберегти схему</button><button class="${this.state.selectedFormation==='4-3-3'?'primary':'ghost'}" onclick="app.applyFormation('4-3-3')">4-3-3</button><button class="${this.state.selectedFormation==='4-4-2'?'primary':'ghost'}" onclick="app.applyFormation('4-4-2')">4-4-2</button><button class="${this.state.selectedFormation==='3-5-2'?'primary':'ghost'}" onclick="app.applyFormation('3-5-2')">3-5-2</button></div><div class="toolbar"><select onchange="app.state.lineFrom=this.value; app.save()"><option value="">Від</option>${this.state.markers.map(m=>`<option value="${m.id}" ${String(this.state.lineFrom)===String(m.id)?'selected':''}>${m.label}</option>`).join('')}</select><select onchange="app.state.lineTo=this.value; app.save()"><option value="">До</option>${this.state.markers.map(m=>`<option value="${m.id}" ${String(this.state.lineTo)===String(m.id)?'selected':''}>${m.label}</option>`).join('')}</select><button class="blue" onclick="app.addLine()">Додати лінію</button></div><div id="pitch" class="pitch-wrap"><div class="pitch-half"></div><div class="pitch-circle"></div><div class="pitch-box-top"></div><div class="pitch-box-bottom"></div><svg style="position:absolute;inset:0;width:100%;height:100%;pointer-events:none">${linesSvg}</svg>${this.state.markers.map(m=>`<div class="marker" style="left:${m.x}%;top:${m.y}%"><div class="dot ${m.color}" onpointerdown="app.state.boardDragId=${m.id}">${m.label}</div><input value="${this.esc(m.label)}" oninput="app.state.markers=app.state.markers.map(x=>x.id===${m.id}?({...x,label:this.value}):x); app.save();" /></div>`).join('')}</div><div class="footer-note">Перетягування працює пальцем і мишкою. Підпис фішки редагується окремо.</div></div><div class="grid two" style="margin-top:16px"><div class="panel"><div class="panel-title">Збережені схеми</div><div class="row">${this.state.savedBoards.map(s=>`<button onclick="app.loadBoard(${s.id})">${this.esc(s.name)}</button>`).join('') || '<span class="muted empty">Поки що немає</span>'}</div></div><div class="panel"><div class="panel-title">Лінії</div><div class="list">${this.state.boardLines.map(l=>`<div class="card" style="margin-bottom:8px;display:flex;justify-content:space-between;align-items:center"><span>${this.state.markers.find(m=>m.id===l.from)?.label || l.from} → ${this.state.markers.find(m=>m.id===l.to)?.label || l.to}</span><button class="red" onclick="app.removeLine(${l.id})">Видалити</button></div>`).join('') || '<div class="muted empty">Ліній поки немає</div>'}</div></div></div>`; },
+  renderTactics(){ document.getElementById('view-tactics').innerHTML=this.tacticsHtml(); this.mountBoardDrag(); },
+  renderAdmin(){ document.getElementById('view-admin').innerHTML=`<div class="grid three"><div class="panel"><div class="panel-title">Додати гравця</div><div class="grid" style="grid-template-columns:1fr; margin-top:12px"><input placeholder="ПІБ" value="${this.esc(this.state.adminName)}" oninput="app.state.adminName=this.value" /><input placeholder="Телефон" value="${this.esc(this.state.adminPhone)}" oninput="app.state.adminPhone=this.value" /><select onchange="app.state.adminLocation=this.value">${LOCATIONS.map(l=>`<option ${this.state.adminLocation===l.name?'selected':''}>${l.name}</option>`).join('')}</select><select onchange="app.state.adminGroup=this.value"><option ${this.state.adminGroup==='Молодша'?'selected':''}>Молодша</option><option ${this.state.adminGroup==='Старша'?'selected':''}>Старша</option></select><button class="primary" onclick="app.addPlayer()">Додати</button></div></div><div class="panel"><div class="panel-title">Швидкі дії</div><div class="row" style="margin-top:12px"><button onclick="app.setTab('payments')">Оплати</button><button onclick="app.setTab('attendance')">Відвідування</button><button onclick="app.setTab('tactics')">Тактика</button></div></div><div class="panel"><div class="panel-title">Дані</div><div class="row" style="margin-top:12px"><button onclick="app.exportJson()">Експорт JSON</button><button onclick="app.exportCsv()">Експорт CSV</button></div></div></div>`; },
+  renderExport(){ document.getElementById('view-export').innerHTML=`<div class="panel"><div class="panel-title">Експорт</div><div class="row" style="margin-top:12px"><button class="primary" onclick="app.exportJson()">Експорт JSON</button><button class="ghost" onclick="app.exportCsv()">Експорт CSV</button></div></div>`; },
+  render(){ this.renderTabs(); this.renderHero(); this.showView(this.state.tab); this.renderDashboard(); this.renderLocations(); this.renderToday(); this.renderAttendance(); this.renderPayments(); this.renderDebtors(); this.renderTrainers(); this.renderTactics(); this.renderAdmin(); this.renderExport(); }
+};
+
+window.app = app;
+app.init();
+</script>
+</body>
+</html>
